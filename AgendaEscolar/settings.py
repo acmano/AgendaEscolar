@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # my apps
     "users.apps.UsersConfig",
+    "Turmas.apps.TurmasConfig",
+    "Pessoas.apps.PessoasConfig"
     # Third part apps
 ]
 
