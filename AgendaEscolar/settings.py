@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     "Alunos.apps.AlunosConfig",
     "Professores.apps.ProfessoresConfig",
     "Responsaveis.apps.ResponsaveisConfig",
+    "Medicamentos.apps.MedicamentosConfig",
+    "Alimentos.apps.AlimentosConfig",
+    "Itens.apps.ItensConfig",
     # Third part apps
 ]
 

@@ -25,13 +25,13 @@ class Pessoas(models.Model):
     RG = models.CharField(verbose_name="RG", max_length=11, null=True)
     EMail = models.EmailField()
     Senha = models.CharField(max_length=150)
-    #    UserId = models.ForeignKey(
-    #        "users.id",
-    #        related_name="users",
-    #        blank=True,
-    #        null=True,
-    #        on_delete=models.PROTECT,
-    #    )
+    UserId = models.ForeignKey(
+        "users.user",
+        related_name="PessoasUsers",
+        blank=True,
+        null=True,
+        on_delete=models.PROTECT,
+    )
     slug = AutoSlugField(unique=True, always_update=False, populate_from="Nome")
 
     class Meta:
