@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     # my apps
     "users.apps.UsersConfig",
     "Turmas.apps.TurmasConfig",
-    "Pessoas.apps.PessoasConfig"
+    "Pessoas.apps.PessoasConfig",
+    "Alunos.apps.AlunosConfig",
+    "Professores.apps.ProfessoresConfig",
+    "Responsaveis.apps.ResponsaveisConfig",
     # Third part apps
 ]
 
