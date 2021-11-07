@@ -14,7 +14,7 @@ class Matriculas(models.Model):
         verbose_name="MatriculaId",
     )
     TurmaId = models.ForeignKey(
-        "Responsaveis.Responsaveis",
+        "Turmas.Turmas",
         related_name="MatriculasTurma",
         verbose_name="Turma",
         blank=True,
@@ -29,19 +29,16 @@ class Matriculas(models.Model):
         null=True,
         on_delete=models.PROTECT,
     )
-    slug = AutoSlugField(
-        unique=True, always_update=False, populate_from="Matricula"
-    )
+    slug = AutoSlugField(unique=True, always_update=False, populate_from="MatriculaId")
 
     class Meta:
         db_table = "Matriculas"
         verbose_name = "Matricula"
         verbose_name_plural = "Matriculas"
+        unique_together = ("TurmaId", "AlunoId")
 
     def __str__(self):
         return str(self.AlunoId)
 
     def get_absolute_url(self):
-        return reverse(
-            "Matriculas:Matriculas", kwargs={"slug": self.slug}
-        )
+        return reverse("Matriculas:Matriculas", kwargs={"slug": self.slug})

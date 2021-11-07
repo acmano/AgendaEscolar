@@ -1,5 +1,6 @@
 from django.db import models
 from autoslug import AutoSlugField
+from django.db.models.constraints import UniqueConstraint
 from django.urls import reverse
 from django.db import models
 
@@ -27,6 +28,7 @@ class Alunos(models.Model):
         db_table = "alunos"
         verbose_name = "Aluno"
         verbose_name_plural = "Alunos"
+        UniqueConstraint(fields=["PessoaId"], name="AlunoPessoa")
 
     def __str__(self):
         return str(self.AlunoId)
