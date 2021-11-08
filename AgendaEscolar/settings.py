@@ -53,6 +53,13 @@ INSTALLED_APPS = [
     "Matriculas.apps.MatriculasConfig",
     "Prescricoes.apps.PrescricoesConfig",
     "Agendas.apps.AgendasConfig",
+    "AgendasAlimentos.apps.AgendasAlimentosConfig",
+    "AgendasMedicamentos.apps.AgendasMedicamentosConfig",
+    "AgendasItens.apps.AgendasItensConfig",
+    "AgendasRecados.apps.AgendasRecadosConfig",
+    "AgendasBanhos.apps.AgendasBanhosConfig",
+    "AgendasSonos.apps.AgendasSonosConfig",
+    "AgendasFisiologias.apps.AgendasFisiologiasConfig"
     # Third part apps
 ]
 
