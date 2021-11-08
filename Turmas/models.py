@@ -1,5 +1,6 @@
 from django.db import models
 from autoslug import AutoSlugField
+from django.db.models.constraints import UniqueConstraint
 from django.urls import reverse
 from django.db import models
 
@@ -10,7 +11,7 @@ class Turmas(models.Model):
     TurmaId = models.AutoField(
         auto_created=True, primary_key=True, serialize=True, verbose_name="TurmaId"
     )
-    NomeTurma = models.CharField(
+    Nome = models.CharField(
         max_length=50, verbose_name="Nome Da Turma", blank=False, null=False
     )
     AnoLetivo = models.IntegerField(verbose_name="Ano Letivo")
@@ -22,6 +23,8 @@ class Turmas(models.Model):
         ordering = ("AnoLetivo",)
         verbose_name = "Turma"
         verbose_name_plural = "Turmas"
+        UniqueConstraint(fields=['TurmaId'], name='TurmasPK')
+        UniqueConstraint(fields=['Nome'], name='TurmasAK')
 
     def __str__(self):
         return str(self.AnoLetivo)

@@ -28,7 +28,8 @@ class Alunos(models.Model):
         db_table = "alunos"
         verbose_name = "Aluno"
         verbose_name_plural = "Alunos"
-        UniqueConstraint(fields=["PessoaId"], name="AlunoPessoa")
+        UniqueConstraint(fields=["AlunoId"], name="AlunoPessoaPK")
+        UniqueConstraint(fields=["PessoaId"], name="AlunoPessoaAK")
 
     def __str__(self):
         return str(self.AlunoId)
