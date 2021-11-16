@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-3z@!5@3#%=7n*$mxvzc0na3)11%#41(sstl%q%t#!zti^elb^9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0", "localhost"]
 
 
 # Application definition
@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     "Paginas.apps.PaginasConfig",
     "Cadastros.apps.CadastrosConfig",
 ]
+
+# Crispy Forms
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -125,6 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
