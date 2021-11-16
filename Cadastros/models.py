@@ -17,9 +17,7 @@ class Fisiologia(models.TextChoices):
     Vomito = "V", "Vômito"
 
 
-# Nivel 0
-
-# Alimentos
+# Nivel 0 Alimentos
 class Alimentos(models.Model):
     AlimentoId = models.AutoField(
         auto_created=True,
@@ -48,7 +46,7 @@ class Alimentos(models.Model):
         UniqueConstraint(fields=["Nome"], name="AlimentosAK")
 
 
-# Itens
+# Nivel 0 Itens
 class Itens(models.Model):
     ItemId = models.AutoField(
         auto_created=True,
@@ -77,7 +75,7 @@ class Itens(models.Model):
         UniqueConstraint(fields=["Nome"], name="ItensAK")
 
 
-# Medicamentos
+# Nivel 0 Medicamentos
 class Medicamentos(models.Model):
     MedicamentoId = models.AutoField(
         auto_created=True,
@@ -106,7 +104,7 @@ class Medicamentos(models.Model):
         UniqueConstraint(fields=["Nome"], name="MedicamentosAK")
 
 
-# Pessoas
+# Nivel 0 Pessoas
 class Pessoas(models.Model):
     PessoaId = models.AutoField(
         auto_created=True, primary_key=True, serialize=True, verbose_name="PessoaId"
@@ -144,7 +142,7 @@ class Pessoas(models.Model):
         UniqueConstraint(fields=["Nome"], name="PessoasAK")
 
 
-# Turmas
+# Nivel 0 Turmas
 class Turmas(models.Model):
     TurmaId = models.AutoField(
         auto_created=True, primary_key=True, serialize=True, verbose_name="TurmaId"
@@ -168,3 +166,21 @@ class Turmas(models.Model):
         verbose_name = "Turma"
         UniqueConstraint(fields=["TurmaId"], name="TurmasPK")
         UniqueConstraint(fields=["Nome"], name="TurmasAK")
+
+
+# Nivel 1 Alunos
+class Alunos(models.Model):
+    AlunoId = models.AutoField(
+        auto_created=True, primary_key=True, serialize=True, verbose_name="AlunoId"
+    )
+    Pessoa = models.ForeignKey ( models.Pessoas, on_delete=models.PRESERVE)
+
+    def __str__(self):
+        return "{}".format(self.Pessoa.Nome)
+
+    class Meta:
+        db_table = "Alunos"
+        ordering = ("AnoLetivo", "AnoEscolar")
+        verbose_name = "Aluno"
+        UniqueConstraint(fields=["AlunoId"], name="AlunosPK")
+        UniqueConstraint(fields=["Pessoa"], name="AlunosAK")
