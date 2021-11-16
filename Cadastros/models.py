@@ -242,3 +242,69 @@ class ResponsaveisAlunos(models.Model):
         db_table = "ResponsaveisAlunos"
         verbose_name = "ResponsavelAluno"
         UniqueConstraint(fields=["ResponsavelAluno_id"], name="ResponsavelAlunoPK")
+
+
+# Nivel 2 Matriculas
+class Matriculas(models.Model):
+    Matricula_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="Matricula_id",
+    )
+    Turma = models.ForeignKey(Turmas, db_index=True, on_delete=models.PROTECT)
+    Aluno = models.ForeignKey(Alunos, db_index=True, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return "{}:{}".format(self.Turma.Nome, self.Aluno.Pessoa.Nome)
+
+    class Meta:
+        db_table = "Matriculas"
+        verbose_name = "Matrículas"
+        UniqueConstraint(fields=["Matricula_id"], name="MatriculaPK")
+
+
+# Nivel 2 TurmasProfessores
+class TurmasProfessores(models.Model):
+    TurmaProfessor_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="Matricula_id",
+    )
+    Turma = models.ForeignKey(Turmas, db_index=True, on_delete=models.PROTECT)
+    Professor = models.ForeignKey(Professores, db_index=True, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return "{}:{}".format(self.Turma.Nome, self.Professor.Pessoa.Nome)
+
+    class Meta:
+        db_table = "TurmasProfessores"
+        verbose_name = "Professores por Turma"
+        UniqueConstraint(fields=["TurmaProfessor_id"], name="TurmaProfessorPK")
+
+
+# Nivel 3 Prescricoes
+class Prescricoes(models.Model):
+    Prescricao_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="Matricula_id",
+    )
+    Alunos = models.ForeignKey(Alunos, db_index=True, on_delete=models.PROTECT)
+    Medicamento = models.ForeignKey(
+        Medicamentos, db_index=True, on_delete=models.PROTECT
+    )
+    DataInicial = models.DateField(null=False, blank=False)
+    DataFinal = models.DateField(null=False, blank=False)
+    Posologia = models.TextField(blank=False, null=False)
+    Horarios = models.TextField(blank=False, null=False)
+
+    def __str__(self):
+        return "{}:{}".format(self.Aluno.Pessoa.Nome, self.Medicamento.Nome)
+
+    class Meta:
+        db_table = "Prescricoes"
+        verbose_name = "Prescrições"
+        UniqueConstraint(fields=["Prescricao_id"], name="PrescricaoPK")

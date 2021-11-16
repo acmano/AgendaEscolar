@@ -274,3 +274,93 @@ class ResponsaveisAlunosDelete(DeleteView):
 class ResponsaveisAlunosList(ListView):
     model = ResponsaveisAlunos
     template_name = "cadastros/listas/responsaveisalunos.html"
+
+
+# Nivel 2 Matriculas
+from .models import Matriculas
+
+
+class MatriculasCreate(CreateView):
+    model = Matriculas
+    fields = ["Turma", "Aluno"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("matriculas-listar")
+
+
+class MatriculasUpdate(UpdateView):
+    model = Matriculas
+    fields = ["Turma", "Aluno"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("matriculas-listar")
+
+
+class MatriculasDelete(DeleteView):
+    model = Matriculas
+    fields = ["Turma", "Aluno"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("matriculas-listar")
+
+
+class MatriculasList(ListView):
+    model = Matriculas
+    template_name = "cadastros/listas/matriculas.html"
+
+
+# Nivel 2 TurmasProfessores
+from .models import TurmasProfessores
+
+
+class TurmasProfessoresCreate(CreateView):
+    model = TurmasProfessores
+    fields = ["Turma", "Professor"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("turmasprofessores-listar")
+
+
+class TurmasProfessoresUpdate(UpdateView):
+    model = TurmasProfessores
+    fields = ["Turma", "Professor"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("turmasprofessores-listar")
+
+
+class TurmasProfessoresDelete(DeleteView):
+    model = TurmasProfessores
+    fields = ["Turma", "Professor"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("turmasprofessores-listar")
+
+
+class TurmasProfessoresList(ListView):
+    model = TurmasProfessores
+    template_name = "cadastros/listas/turmasprofessores.html"
+
+
+# Nivel 2 Prescricoes
+from .models import Prescricoes
+
+
+class PrescricoesCreate(CreateView):
+    model = Prescricoes
+    fields = ["Aluno", "Medicamento"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("prescricoes-listar")
+
+
+class PrescricoesUpdate(UpdateView):
+    model = Prescricoes
+    fields = ["Aluno", "Medicamento"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("prescricoes-listar")
+
+
+class PrescricoesDelete(DeleteView):
+    model = Prescricoes
+    fields = ["Aluno", "Medicamento"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("prescricoes-listar")
+
+
+class PrescricoesList(ListView):
+    model = Prescricoes
+    template_name = "cadastros/listas/prescricoes.html"

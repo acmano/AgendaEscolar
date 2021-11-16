@@ -225,3 +225,99 @@ urlpatterns += [
         name="responsaveisalunos-listar",
     ),
 ]
+
+
+# Nivel 2 - Matriculas
+from .views import MatriculasCreate
+from .views import MatriculasUpdate
+from .views import MatriculasDelete
+from .views import MatriculasList
+
+
+urlpatterns += [
+    #   path("endereco/", MinhaView.as_view(), name="endereco"),
+    path(
+        "matricula/cadastrar/",
+        MatriculasCreate.as_view(),
+        name="matricula-cadastrar",
+    ),
+    path(
+        "matricula/editar/<int:pk>/",
+        MatriculasUpdate.as_view(),
+        name="matricula-editar",
+    ),
+    path(
+        "matricula/excluir/<int:pk>/",
+        MatriculasDelete.as_view(),
+        name="matricula-excluir",
+    ),
+    path(
+        "matricula/listar/",
+        MatriculasList.as_view(),
+        name="matriculas-listar",
+    ),
+]
+
+
+# Nivel 2 - TurmasProfessores
+from .views import TurmasProfessoresCreate
+from .views import TurmasProfessoresUpdate
+from .views import TurmasProfessoresDelete
+from .views import TurmasProfessoresList
+
+
+urlpatterns += [
+    #   path("endereco/", MinhaView.as_view(), name="endereco"),
+    path(
+        "turmaprofessor/cadastrar/",
+        TurmasProfessoresCreate.as_view(),
+        name="turmaprofessor-cadastrar",
+    ),
+    path(
+        "turmaprofessor/editar/<int:pk>/",
+        TurmasProfessoresUpdate.as_view(),
+        name="turmaprofessor-editar",
+    ),
+    path(
+        "turmaprofessor/excluir/<int:pk>/",
+        TurmasProfessoresDelete.as_view(),
+        name="turmaprofessor-excluir",
+    ),
+    path(
+        "turmaprofessor/listar/",
+        TurmasProfessoresList.as_view(),
+        name="turmasprofessores-listar",
+    ),
+]
+
+
+# Nivel 2 - Prescricoes
+from .views import PrescricoesCreate
+from .views import PrescricoesUpdate
+from .views import PrescricoesDelete
+from .views import PrescricoesList
+
+
+urlpatterns += [
+    #   path("endereco/", MinhaView.as_view(), name="endereco"),
+    path(
+        "prescricao/cadastrar/",
+        PrescricoesCreate.as_view(),
+        name="prescricao-cadastrar",
+    ),
+    path(
+        "prescricao/editar/<int:pk>/",
+        PrescricoesUpdate.as_view(),
+        name="prescricao-editar",
+    ),
+    path(
+        "prescricao/excluir/<int:pk>/",
+        PrescricoesDelete.as_view(),
+        name="prescricao-excluir",
+    ),
+    path(
+        "prescricao/listar/",
+        PrescricoesList.as_view(),
+        name="prescricao-listar",
+    ),
+]

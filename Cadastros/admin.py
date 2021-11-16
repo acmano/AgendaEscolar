@@ -25,5 +25,11 @@ admin.site.register(Responsaveis)
 
 # Nivel 2
 from .models import ResponsaveisAlunos
+from .models import Matriculas
+from .models import TurmasProfessores
+from .models import Prescricoes
 
 admin.site.register(ResponsaveisAlunos)
+admin.site.register(Matriculas)
+admin.site.register(TurmasProfessores)
+admin.site.register(Prescricoes)
