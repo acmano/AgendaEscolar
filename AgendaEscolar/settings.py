@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,47 +21,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-n@-3xf93l0zcn1z!us=hrmddw_q0k^yqx2d7x*r!7w7us_i7%w"
+SECRET_KEY = "django-insecure-3z@!5@3#%=7n*$mxvzc0na3)11%#41(sstl%q%t#!zti^elb^9"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.1.114", "192.168.1.191", "177.144.130.120"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    # Django apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # my apps
-    "users.apps.UsersConfig",
-    "Turmas.apps.TurmasConfig",
-    "Pessoas.apps.PessoasConfig",
-    "Alunos.apps.AlunosConfig",
-    "Professores.apps.ProfessoresConfig",
-    "Responsaveis.apps.ResponsaveisConfig",
-    "Medicamentos.apps.MedicamentosConfig",
-    "Alimentos.apps.AlimentosConfig",
-    "Itens.apps.ItensConfig",
-    "ResponsaveisAlunos.apps.ResponsaveisAlunosConfig",
-    "TurmasProfessores.apps.TurmasProfessoresConfig",
-    "Matriculas.apps.MatriculasConfig",
-    "Prescricoes.apps.PrescricoesConfig",
-    "Agendas.apps.AgendasConfig",
-    "AgendasAlimentos.apps.AgendasAlimentosConfig",
-    "AgendasMedicamentos.apps.AgendasMedicamentosConfig",
-    "AgendasItens.apps.AgendasItensConfig",
-    "AgendasRecados.apps.AgendasRecadosConfig",
-    "AgendasBanhos.apps.AgendasBanhosConfig",
-    "AgendasSonos.apps.AgendasSonosConfig",
-    "AgendasFisiologias.apps.AgendasFisiologiasConfig"
-    # Third part apps
+    "Paginas.apps.PaginasConfig",
+    "Cadastros.apps.CadastrosConfig",
 ]
 
 MIDDLEWARE = [
@@ -78,7 +57,7 @@ ROOT_URLCONF = "AgendaEscolar.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "Templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -151,6 +130,3 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# User model dsa aplicação
-AUTH_USER_MODEL = "users.User"
