@@ -19,11 +19,11 @@ class Fisiologia(models.TextChoices):
 
 # Nivel 0 Alimentos
 class Alimentos(models.Model):
-    AlimentoId = models.AutoField(
+    Alimento_id = models.AutoField(
         auto_created=True,
         primary_key=True,
         serialize=True,
-        verbose_name="AlimentoId",
+        verbose_name="Alimento_id",
     )
     Nome = models.CharField(
         max_length=50, verbose_name="Nome", blank=False, null=False, unique=True
@@ -42,17 +42,17 @@ class Alimentos(models.Model):
         db_table = "Alimentos"
         ordering = ("Nome",)
         verbose_name = "Alimento"
-        UniqueConstraint(fields=["AlimentoId"], name="AlimentosPK")
+        UniqueConstraint(fields=["Alimento_id"], name="AlimentosPK")
         UniqueConstraint(fields=["Nome"], name="AlimentosAK")
 
 
 # Nivel 0 Itens
 class Itens(models.Model):
-    ItemId = models.AutoField(
+    Item_id = models.AutoField(
         auto_created=True,
         primary_key=True,
         serialize=True,
-        verbose_name="ItemId",
+        verbose_name="Item_id",
     )
     Nome = models.CharField(
         max_length=50, verbose_name="Nome", blank=False, null=False, unique=True
@@ -71,17 +71,17 @@ class Itens(models.Model):
         db_table = "Itens"
         ordering = ("Nome",)
         verbose_name = "Item"
-        UniqueConstraint(fields=["ItemId"], name="ItensPK")
+        UniqueConstraint(fields=["Item_id"], name="ItensPK")
         UniqueConstraint(fields=["Nome"], name="ItensAK")
 
 
 # Nivel 0 Medicamentos
 class Medicamentos(models.Model):
-    MedicamentoId = models.AutoField(
+    Medicamento_id = models.AutoField(
         auto_created=True,
         primary_key=True,
         serialize=True,
-        verbose_name="MedicamentoId",
+        verbose_name="Medicamento_id",
     )
     Nome = models.CharField(
         max_length=50, verbose_name="Nome", blank=False, null=False, unique=True
@@ -100,14 +100,14 @@ class Medicamentos(models.Model):
         db_table = "Medicamentos"
         ordering = ("Nome",)
         verbose_name = "Medicamento"
-        UniqueConstraint(fields=["MedicamentoId"], name="MedicamentosPK")
+        UniqueConstraint(fields=["Medicamento_id"], name="MedicamentosPK")
         UniqueConstraint(fields=["Nome"], name="MedicamentosAK")
 
 
 # Nivel 0 Pessoas
 class Pessoas(models.Model):
-    PessoaId = models.AutoField(
-        auto_created=True, primary_key=True, serialize=True, verbose_name="PessoaId"
+    Pessoa_id = models.AutoField(
+        auto_created=True, primary_key=True, serialize=True, verbose_name="Pessoa_id"
     )
     Nome = models.CharField(
         max_length=50,
@@ -138,7 +138,7 @@ class Pessoas(models.Model):
         db_table = "Pessoas"
         ordering = ("Nome",)
         verbose_name = "Pessoa"
-        UniqueConstraint(fields=["PesoaId"], name="PessoasAK")
+        UniqueConstraint(fields=["Pesoa_id"], name="PessoasAK")
         UniqueConstraint(fields=["Nome"], name="PessoasAK")
 
 
@@ -170,17 +170,75 @@ class Turmas(models.Model):
 
 # Nivel 1 Alunos
 class Alunos(models.Model):
-    AlunoId = models.AutoField(
-        auto_created=True, primary_key=True, serialize=True, verbose_name="AlunoId"
+    Aluno_id = models.AutoField(
+        auto_created=True, primary_key=True, serialize=True, verbose_name="Aluno_id"
     )
-    Pessoa = models.ForeignKey ( models.Pessoas, on_delete=models.PRESERVE)
+    Pessoa = models.OneToOneField(Pessoas, db_index=True, on_delete=models.PROTECT)
 
     def __str__(self):
         return "{}".format(self.Pessoa.Nome)
 
     class Meta:
         db_table = "Alunos"
-        ordering = ("AnoLetivo", "AnoEscolar")
         verbose_name = "Aluno"
-        UniqueConstraint(fields=["AlunoId"], name="AlunosPK")
+        UniqueConstraint(fields=["Aluno_id"], name="AlunosPK")
         UniqueConstraint(fields=["Pessoa"], name="AlunosAK")
+
+
+# Nivel 1 Professores
+class Professores(models.Model):
+    Professor_id = models.AutoField(
+        auto_created=True, primary_key=True, serialize=True, verbose_name="Professor_id"
+    )
+    Pessoa = models.OneToOneField(Pessoas, db_index=True, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return "{}".format(self.Pessoa.Nome)
+
+    class Meta:
+        db_table = "Professores"
+        verbose_name = "Professor"
+        UniqueConstraint(fields=["Professor_id"], name="ProfessorPK")
+        UniqueConstraint(fields=["Pessoa"], name="ProfessorAK")
+
+
+# Nivel 1 Responsaveis
+class Responsaveis(models.Model):
+    Responsavel_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="Responsavel_id",
+    )
+    Pessoa = models.OneToOneField(Pessoas, db_index=True, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return "{}".format(self.Pessoa.Nome)
+
+    class Meta:
+        db_table = "Responsaveis"
+        verbose_name = "Responsavel"
+        UniqueConstraint(fields=["Responsavel_id"], name="ResponsavelPK")
+        UniqueConstraint(fields=["Pessoa"], name="ResponsavelAK")
+
+
+# Nivel 2 ResponsaveisAlunos
+class ResponsaveisAlunos(models.Model):
+    ResponsavelAluno_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="ResponsavelAluno_id",
+    )
+    Responsavel = models.ForeignKey(
+        Responsaveis, db_index=True, on_delete=models.PROTECT
+    )
+    Aluno = models.ForeignKey(Alunos, db_index=True, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return "{}:{}".format(self.Responsavel.Pessoa.Nome, self.Aluno.Pessoa.Nome)
+
+    class Meta:
+        db_table = "ResponsaveisAlunos"
+        verbose_name = "ResponsavelAluno"
+        UniqueConstraint(fields=["ResponsavelAluno_id"], name="ResponsavelAlunoPK")

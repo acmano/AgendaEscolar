@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "Paginas.apps.PaginasConfig",
     "Cadastros.apps.CadastrosConfig",
+    "crispy_forms",
 ]
 
 # Crispy Forms

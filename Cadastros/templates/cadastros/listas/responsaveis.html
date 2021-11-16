@@ -1,0 +1,34 @@
+{% extends 'paginas/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+
+<h3>Lista de Responsáveis</h3>
+<a href="{% url 'responsavel-cadastrar' %}" class="btn btn-primary btn-sm">Adicionar Responsável</a>
+<hr>
+<div class="table-responsive">
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th>Nome</th>
+    </tr>
+    {% for responsavel in object_list %}
+    <tr>
+      <td>
+        {{ responsavel.Pessoa.Nome }}
+      </td>
+      <td>
+        <a href="{% url 'responsavel-excluir' responsavel.pk %}" class="btn btn-danger btn-sm" title="Excluir"><i class="fa fa-trash" aria-hidden="true"></i></a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="2">
+        Nenhum responsável cadastrado
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

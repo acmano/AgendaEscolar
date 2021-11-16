@@ -6,8 +6,7 @@ from django.urls import reverse_lazy
 
 # Create your views here.
 
-# Nivel 0
-# Alimentos
+# Nivel 0 Alimentos
 from .models import Alimentos
 
 
@@ -37,7 +36,7 @@ class AlimentosList(ListView):
     template_name = "cadastros/listas/alimentos.html"
 
 
-# Itens
+# Nivel 0 Itens
 from .models import Itens
 
 
@@ -67,7 +66,7 @@ class ItensList(ListView):
     template_name = "cadastros/listas/itens.html"
 
 
-# Medicamentos
+# Nivel 0 Medicamentos
 from .models import Medicamentos
 
 
@@ -97,7 +96,7 @@ class MedicamentosList(ListView):
     template_name = "cadastros/listas/medicamentos.html"
 
 
-# Pessoas
+# Nivel 0 Pessoas
 from .models import Pessoas
 
 
@@ -105,29 +104,29 @@ class PessoasCreate(CreateView):
     model = Pessoas
     fields = ["Nome", "Apelido", "DataNascimento", "CPF", "RG", "EMail", "Senha"]
     template_name = "cadastros/form.html"
-    success_url = reverse_lazy("turmas-listar")
+    success_url = reverse_lazy("pessoas-listar")
 
 
 class PessoasUpdate(UpdateView):
     model = Pessoas
     fields = ["Nome", "Apelido", "DataNascimento", "CPF", "RG", "EMail", "Senha"]
     template_name = "cadastros/form.html"
-    success_url = reverse_lazy("turmas-listar")
+    success_url = reverse_lazy("pessoas-listar")
 
 
 class PessoasDelete(DeleteView):
     model = Pessoas
     fields = ["Nome", "Apelido", "DataNascimento", "CPF", "RG", "EMail", "Senha"]
     template_name = "cadastros/form.html"
-    success_url = reverse_lazy("turmas-listar")
+    success_url = reverse_lazy("pessoas-listar")
 
 
 class PessoasList(ListView):
     model = Pessoas
-    template_name = "cadastros/listas/turmas.html"
+    template_name = "cadastros/listas/pessoas.html"
 
 
-# Turmas
+# Nivel 0 Turmas
 from .models import Turmas
 
 
@@ -155,3 +154,123 @@ class TurmasDelete(DeleteView):
 class TurmasList(ListView):
     model = Turmas
     template_name = "cadastros/listas/turmas.html"
+
+
+# Nivel 1 Alunos
+from .models import Alunos
+
+
+class AlunosCreate(CreateView):
+    model = Alunos
+    fields = ["Pessoa"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("alunos-listar")
+
+
+class AlunosUpdate(UpdateView):
+    model = Alunos
+    fields = ["Pessoa"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("alunos-listar")
+
+
+class AlunosDelete(DeleteView):
+    model = Alunos
+    fields = ["Pessoa"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("alunos-listar")
+
+
+class AlunosList(ListView):
+    model = Alunos
+    template_name = "cadastros/listas/alunos.html"
+
+
+# Nivel 1 Professores
+from .models import Professores
+
+
+class ProfessoresCreate(CreateView):
+    model = Professores
+    fields = ["Pessoa"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("professores-listar")
+
+
+class ProfessoresUpdate(UpdateView):
+    model = Professores
+    fields = ["Pessoa"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("professores-listar")
+
+
+class ProfessoresDelete(DeleteView):
+    model = Professores
+    fields = ["Pessoa"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("professores-listar")
+
+
+class ProfessoresList(ListView):
+    model = Professores
+    template_name = "cadastros/listas/professores.html"
+
+
+# Nivel 1 Responsaveis
+from .models import Responsaveis
+
+
+class ResponsaveisCreate(CreateView):
+    model = Responsaveis
+    fields = ["Pessoa"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("responsaveis-listar")
+
+
+class ResponsaveisUpdate(UpdateView):
+    model = Responsaveis
+    fields = ["Pessoa"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("responsaveis-listar")
+
+
+class ResponsaveisDelete(DeleteView):
+    model = Responsaveis
+    fields = ["Pessoa"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("responsaveis-listar")
+
+
+class ResponsaveisList(ListView):
+    model = Responsaveis
+    template_name = "cadastros/listas/responsaveis.html"
+
+
+# Nivel 2 ResponsaveisAlunos
+from .models import ResponsaveisAlunos
+
+
+class ResponsaveisAlunosCreate(CreateView):
+    model = ResponsaveisAlunos
+    fields = ["Responsavel", "Aluno"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("responsaveisalunos-listar")
+
+
+class ResponsaveisAlunosUpdate(UpdateView):
+    model = ResponsaveisAlunos
+    fields = ["Responsavel", "Aluno"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("responsaveisalunos-listar")
+
+
+class ResponsaveisAlunosDelete(DeleteView):
+    model = ResponsaveisAlunos
+    fields = ["Responsavel", "Aluno"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("responsaveisalunos-listar")
+
+
+class ResponsaveisAlunosList(ListView):
+    model = ResponsaveisAlunos
+    template_name = "cadastros/listas/responsaveisalunos.html"

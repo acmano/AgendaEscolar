@@ -1,0 +1,34 @@
+{% extends 'paginas/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+
+<h3>Lista de Professores</h3>
+<a href="{% url 'professor-cadastrar' %}" class="btn btn-primary btn-sm">Adicionar Professor</a>
+<hr>
+<div class="table-responsive">
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th>Nome</th>
+    </tr>
+    {% for professor in object_list %}
+    <tr>
+      <td>
+        {{ professor.Pessoa.Nome }}
+      </td>
+      <td>
+        <a href="{% url 'professor-excluir' professor.pk %}" class="btn btn-danger btn-sm" title="Excluir"><i class="fa fa-trash" aria-hidden="true"></i></a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="2">
+        Nenhum professor cadastrado
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}
