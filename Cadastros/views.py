@@ -131,7 +131,16 @@ class PessoasCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy("login")
     group_required = [u"", u""]
     model = Pessoas
-    fields = ["Nome", "Apelido", "DataNascimento", "CPF", "RG", "EMail", "Senha"]
+    fields = [
+        "Usuario",
+        "Nome",
+        "Apelido",
+        "DataNascimento",
+        "CPF",
+        "RG",
+        "EMail",
+        "Senha",
+    ]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("pessoas-listar")
 
@@ -167,7 +176,16 @@ class PessoasUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy("login")
     group_required = [u"", u""]
     model = Pessoas
-    fields = ["Nome", "Apelido", "DataNascimento", "CPF", "RG", "EMail", "Senha"]
+    fields = [
+        "Usuario",
+        "Nome",
+        "Apelido",
+        "DataNascimento",
+        "CPF",
+        "RG",
+        "EMail",
+        "Senha",
+    ]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("pessoas-listar")
 
@@ -184,7 +202,16 @@ class PessoasDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy("login")
     group_required = [u"", u""]
     model = Pessoas
-    fields = ["Nome", "Apelido", "DataNascimento", "CPF", "RG", "EMail", "Senha"]
+    fields = [
+        "Usuario",
+        "Nome",
+        "Apelido",
+        "DataNascimento",
+        "CPF",
+        "RG",
+        "EMail",
+        "Senha",
+    ]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("pessoas-listar")
 

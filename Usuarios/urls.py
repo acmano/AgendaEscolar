@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import UsuarioCreate
-from .views import PerfilUpdate
+from Cadastros.views import PessoasCreate
+from Cadastros.views import PessoasUpdate
 
 urlpatterns = [
     path(
@@ -9,11 +9,6 @@ urlpatterns = [
         auth_views.LoginView.as_view(template_name="usuarios/login.html"),
         name="login",
     ),
-    path(
-        "logout/",
-        auth_views.LogoutView.as_view(template_name="usuarios/login.html"),
-        name="logout",
-    ),
-    path("registrar/", UsuarioCreate.as_view(), name="registrar"),
-    path("atualizar-dados/", PerfilUpdate.as_view(), name="atualizar-dados"),
+    path("registrar/", PessoasCreate.as_view(), name="registrar"),
+    path("atualizar-dados/", PessoasUpdate.as_view(), name="atualizar-dados"),
 ]

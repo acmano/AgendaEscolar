@@ -1,22 +1,9 @@
 from django.db import models
 from django.db.models.constraints import UniqueConstraint
 from django.contrib.auth.models import User
+from localflavor.br.models import BRCPFField
 
 # Create your models here.
-
-
-class Aceite(models.TextChoices):
-    Otimo = "O", "Ótimo"
-    Regular = "R", "Regular"
-    MAR = "G", "Rejeitou"
-
-
-class Fisiologia(models.TextChoices):
-    Fralda = "F", "Fralda"
-    Unina = "U", "Urina"
-    Fezes = "Z", "Fezes"
-    Vomito = "V", "Vômito"
-
 
 # Nivel 0 Alimentos
 class Alimentos(models.Model):
@@ -110,7 +97,7 @@ class Pessoas(models.Model):
     Pessoa_id = models.AutoField(
         auto_created=True, primary_key=True, serialize=True, verbose_name="Pessoa_id"
     )
-    #    Usuario = models.ForeignKey(User, on_delete=models.PROTECT)
+    Usuario = models.ForeignKey(User, on_delete=models.PROTECT)
     Nome = models.CharField(
         max_length=50,
         verbose_name="Nome",
@@ -126,9 +113,7 @@ class Pessoas(models.Model):
         unique=False,
     )
     DataNascimento = models.DateField(verbose_name="Data de Nascimento", null=True)
-    CPF = models.DecimalField(
-        verbose_name="CPF", max_digits=11, decimal_places=0, null=True
-    )
+    CPF = BRCPFField(verbose_name="CPF", null=True)
     RG = models.CharField(verbose_name="RG", max_length=11, null=True)
     EMail = models.EmailField()
     Senha = models.CharField(max_length=150)
@@ -336,3 +321,191 @@ class Agendas(models.Model):
         verbose_name = "Agendas"
         UniqueConstraint(fields=["Agenda_id"], name="AgendaPK")
         UniqueConstraint(fields=["TurmaProfessor", "Aluno", "Data"], name="AgendaAK")
+
+
+# Nivel 4 AgendasAlimentos
+class AgendasAlimentos(models.Model):
+    Aceite = (
+        ("O", "Ótimo"),
+        ("R", "Regular"),
+        ("G", "Rejeitou"),
+    )
+
+    AgendaAlimento_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="AgendaAlimento_id",
+    )
+    Agenda = models.ForeignKey(Agendas, db_index=True, on_delete=models.CASCADE)
+    DiaHoraRegistro = models.DateTimeField(auto_now_add=True)
+    Alimento = models.ForeignKey(Alimentos, db_index=True, on_delete=models.PROTECT)
+    Aceite = models.CharField(max_length=1, choices=Aceite, default=Aceite[1][0])
+    Hora = models.TimeField(null=False, blank=False)
+
+    def __str__(self):
+        return "{}:{}".format(
+            self.Agenda.Matricula.Aluno.Pessoa.Nome,
+            self.Agenda.Data,
+        )
+
+    class Meta:
+        db_table = "AgendasAlimentos"
+        verbose_name = "Alimentos da Agenda"
+        UniqueConstraint(fields=["AgendaAlimento_id"], name="AgendaAlimentoPK")
+
+
+# Nivel 4 AgendasBanhos
+class AgendasBanhos(models.Model):
+    AgendaBanho_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="AgendaBanho_id",
+    )
+    Agenda = models.ForeignKey(Agendas, db_index=True, on_delete=models.CASCADE)
+    DiaHoraRegistro = models.DateTimeField(auto_now_add=True)
+    Hora = models.TimeField(null=False, blank=False)
+
+    def __str__(self):
+        return "{}:{}".format(
+            self.Agenda.Matricula.Aluno.Pessoa.Nome,
+            self.Agenda.Data,
+        )
+
+    class Meta:
+        db_table = "AgendasBanhos"
+        verbose_name = "Banhos da Agenda"
+        UniqueConstraint(fields=["AgendaBanho_id"], name="AgendaBanhoPK")
+
+
+# Nivel 4 AgendasFisiologias
+class AgendasFisiologias(models.Model):
+    Fisiologia = (
+        ("F", "Fralda"),
+        ("U", "Urina"),
+        ("Z", "Fezes"),
+        ("V", "Vômito"),
+    )
+    AgendaAlimento_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="AgendaFisiologia_id",
+    )
+    Agenda = models.ForeignKey(Agendas, db_index=True, on_delete=models.CASCADE)
+    DiaHoraRegistro = models.DateTimeField(auto_now_add=True)
+    Fisiologia = models.CharField(
+        max_length=1, choices=Fisiologia, default=Fisiologia[0][0]
+    )
+    Hora = models.TimeField(null=False, blank=False)
+
+    def __str__(self):
+        return "{}:{}".format(
+            self.Agenda.Matricula.Aluno.Pessoa.Nome,
+            self.Agenda.Data,
+        )
+
+    class Meta:
+        db_table = "AgendasFisiologias"
+        verbose_name = "Fisiologias da Agenda"
+        UniqueConstraint(fields=["AgendaFisiologia_id"], name="AgendaFisiologiaPK")
+
+
+# Nivel 4 AgendasItens
+class AgendasItens(models.Model):
+    AgendaAlimento_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="AgendaItem_id",
+    )
+    Agenda = models.ForeignKey(Agendas, db_index=True, on_delete=models.CASCADE)
+    DiaHoraRegistro = models.DateTimeField(auto_now_add=True)
+    Item = models.ForeignKey(Itens, db_index=True, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return "{}:{}".format(
+            self.Agenda.Matricula.Aluno.Pessoa.Nome,
+            self.Agenda.Data,
+        )
+
+    class Meta:
+        db_table = "AgendasItens"
+        verbose_name = "Itens da Agenda"
+        UniqueConstraint(fields=["AgendaItem_id"], name="AgendaItemPK")
+
+
+# Nivel 4 AgendasMedicamentos
+class AgendasMedicamentos(models.Model):
+    AgendaMedicamento_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="AgendaMedicamento_id",
+    )
+    Agenda = models.ForeignKey(Agendas, db_index=True, on_delete=models.CASCADE)
+    DiaHoraRegistro = models.DateTimeField(auto_now_add=True)
+    Prescricao = models.ForeignKey(Prescricoes, db_index=True, on_delete=models.PROTECT)
+    Hora = models.TimeField(null=False, blank=False)
+    PosologiaAdministrada = models.CharField(max_length=50)
+
+    def __str__(self):
+        return "{}:{}".format(
+            self.Agenda.Matricula.Aluno.Pessoa.Nome,
+            self.Agenda.Data,
+        )
+
+    class Meta:
+        db_table = "AgendasMedicamentos"
+        verbose_name = "Medicamentos da Agenda"
+        UniqueConstraint(fields=["AgendaMedicamento_id"], name="AgendaMedicamentoPK")
+
+
+# Nivel 4 AgendasRecados
+class AgendasRecados(models.Model):
+    AgendaRecado_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="AgendaRecado_id",
+    )
+    Agenda = models.ForeignKey(Agendas, db_index=True, on_delete=models.CASCADE)
+    DiaHoraRegistro = models.DateTimeField(auto_now_add=True)
+    Recado = models.TextField(blank=False, null=False)
+
+    def __str__(self):
+        return "{}:{}".format(
+            self.Agenda.Matricula.Aluno.Pessoa.Nome,
+            self.Agenda.Data,
+        )
+
+    class Meta:
+        db_table = "AgendasRecados"
+        verbose_name = "Recados da Agenda"
+        UniqueConstraint(fields=["AgendaRecado_id"], name="AgendaRecadoPK")
+
+
+# Nivel 4 AgendasSonos
+class AgendasSonos(models.Model):
+    AgendaSono_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="AgendaSono_id",
+    )
+    Agenda = models.ForeignKey(Agendas, db_index=True, on_delete=models.CASCADE)
+    DiaHoraRegistro = models.DateTimeField(auto_now_add=True)
+    Inicio = models.TimeField(null=False, blank=False)
+    Fim = models.TimeField(null=False, blank=False)
+
+    def __str__(self):
+        return "{}:{}".format(
+            self.Agenda.Matricula.Aluno.Pessoa.Nome,
+            self.Agenda.Data,
+        )
+
+    class Meta:
+        db_table = "AgendasSonos"
+        verbose_name = "Sonos da Agenda"
+        UniqueConstraint(fields=["AgendaSono_id"], name="AgendaSonoPK")

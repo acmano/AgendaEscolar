@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     "django_cleanup.apps.CleanupConfig",
     "Paginas.apps.PaginasConfig",
     "Cadastros.apps.CadastrosConfig",
-    "Usuarios.apps.UsuariosConfig",
     "crispy_forms",
+    "localflavor",
 ]
 
 # Crispy Forms
