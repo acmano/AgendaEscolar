@@ -514,3 +514,41 @@ class PrescricoesList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     group_required = [u"", u""]
     model = Prescricoes
     template_name = "cadastros/listas/prescricoes.html"
+
+
+# Nivel 3 Agendas
+from .models import Agendas
+
+
+class AgendasCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = Agendas
+    fields = ["TurmaProfessor", "Matricula", "Data"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("agendas-listar")
+
+
+class AgendasUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = Agendas
+    fields = ["TurmaProfessor", "Matricula", "Data"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("agendas-listar")
+
+
+class AgendasDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = Agendas
+    fields = ["TurmaProfessor", "Matricula", "Data"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("agendas-listar")
+
+
+class AgendasList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = Agendas
+    template_name = "cadastros/listas/Agendas.html"

@@ -321,3 +321,35 @@ urlpatterns += [
         name="prescricoes-listar",
     ),
 ]
+
+
+# Nivel 3 - Agendas
+from .views import AgendasCreate
+from .views import AgendasUpdate
+from .views import AgendasDelete
+from .views import AgendasList
+
+
+urlpatterns += [
+    #   path("endereco/", MinhaView.as_view(), name="endereco"),
+    path(
+        "agenda/cadastrar/",
+        AgendasCreate.as_view(),
+        name="agenda-cadastrar",
+    ),
+    path(
+        "agenda/editar/<int:pk>/",
+        AgendasUpdate.as_view(),
+        name="agenda-editar",
+    ),
+    path(
+        "agenda/excluir/<int:pk>/",
+        AgendasDelete.as_view(),
+        name="agenda-excluir",
+    ),
+    path(
+        "agenda/listar/",
+        AgendasList.as_view(),
+        name="agendas-listar",
+    ),
+]

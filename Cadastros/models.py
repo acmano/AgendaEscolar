@@ -286,7 +286,7 @@ class TurmasProfessores(models.Model):
         UniqueConstraint(fields=["TurmaProfessor_id"], name="TurmaProfessorPK")
 
 
-# Nivel 3 Prescricoes
+# Nivel 2 Prescricoes
 class Prescricoes(models.Model):
     Prescricao_id = models.AutoField(
         auto_created=True,
@@ -310,3 +310,29 @@ class Prescricoes(models.Model):
         db_table = "Prescricoes"
         verbose_name = "Prescrições"
         UniqueConstraint(fields=["Prescricao_id"], name="PrescricaoPK")
+
+
+# Nivel 3 Agendas
+class Agendas(models.Model):
+    Agenda_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="Agenda_id",
+    )
+    TurmaProfessor = models.ForeignKey(
+        TurmasProfessores, db_index=True, on_delete=models.PROTECT
+    )
+    Matricula = models.ForeignKey(Matriculas, db_index=True, on_delete=models.PROTECT)
+    Data = models.DateField(null=False, blank=False)
+
+    def __str__(self):
+        return "{}:{}:{}".format(
+            self.TurmaProfessor.Turma.Nome, self.Matricula.Aluno.Pessoa.Nome, self.Data
+        )
+
+    class Meta:
+        db_table = "Agendas"
+        verbose_name = "Agendas"
+        UniqueConstraint(fields=["Agenda_id"], name="AgendaPK")
+        UniqueConstraint(fields=["TurmaProfessor", "Aluno", "Data"], name="AgendaAK")
