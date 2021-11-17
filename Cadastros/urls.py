@@ -80,24 +80,19 @@ urlpatterns += [
 ]
 
 # Nivel 0 - Pessoas
-from .views import PessoasCreate
+from .views import UserCreate
 from .views import PessoasUpdate
-from .views import PessoasDelete
-from .views import PessoasList
 
 
 urlpatterns += [
     #   path("endereco/", MinhaView.as_view(), name="endereco"),
-    path("pessoa/cadastrar/", PessoasCreate.as_view(), name="pessoa-cadastrar"),
-    path("pessoa/editar/<int:pk>/", PessoasUpdate.as_view(), name="pessoa-editar"),
-    path("pessoa/excluir/<int:pk>/", PessoasDelete.as_view(), name="pessoa-excluir"),
-    path("pessoas/listar/", PessoasList.as_view(), name="pessoas-listar"),
     path(
         "login/",
         auth_views.LoginView.as_view(template_name="paginas/login.html"),
         name="login",
     ),
-    path("registrar/", PessoasCreate.as_view(), name="registrar"),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path("login/registrar/", UserCreate.as_view(), name="registrar"),
     path("atualizar-dados/", PessoasUpdate.as_view(), name="atualizar-dados"),
 ]
 
@@ -116,21 +111,6 @@ urlpatterns += [
     path("turmas/listar/", TurmasList.as_view(), name="turmas-listar"),
 ]
 
-
-# Nivel 0 - Pessoas
-from .views import PessoasCreate
-from .views import PessoasUpdate
-from .views import PessoasDelete
-from .views import PessoasList
-
-
-urlpatterns += [
-    #   path("endereco/", MinhaView.as_view(), name="endereco"),
-    path("pessoa/cadastrar/", PessoasCreate.as_view(), name="pessoa-cadastrar"),
-    path("pessoa/editar/<int:pk>/", PessoasUpdate.as_view(), name="pessoa-editar"),
-    path("pessoa/excluir/<int:pk>/", PessoasDelete.as_view(), name="pessoa-excluir"),
-    path("pessoas/listar/", PessoasList.as_view(), name="pessoas-listar"),
-]
 
 # Nivel 1 - Alunos
 from .views import AlunosCreate

@@ -4,6 +4,8 @@ from django.views.generic.edit import DeleteView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 from braces.views import GroupRequiredMixin
 from django.shortcuts import get_object_or_404
 
@@ -125,24 +127,27 @@ class MedicamentosList(GroupRequiredMixin, LoginRequiredMixin, ListView):
 
 # Nivel 0 Pessoas
 from .models import Pessoas
+from .forms import UserForm
 
 
-class PessoasCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
-    login_url = reverse_lazy("login")
-    group_required = [u"", u""]
-    model = Pessoas
-    fields = [
-        "Usuario",
-        "Nome",
-        "Apelido",
-        "DataNascimento",
-        "CPF",
-        "RG",
-        "EMail",
-        "Senha",
-    ]
+class UserCreate(CreateView):
     template_name = "cadastros/form.html"
-    success_url = reverse_lazy("pessoas-listar")
+    form_class = UserForm
+    success_url = reverse_lazy("login")
+
+    def form_valid(self, form):
+        grupo = get_object_or_404(Group, name="Convidados")
+        url = super().form_valid(form)
+        self.object.groups.add(grupo)
+        self.object.save()
+        Pessoas.objects.create(Usuario=self.object)
+        return url
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["titulo"] = "Registro de novo usuário"
+        context["botao"] = "Cadastrar"
+        return context
 
 
 """
@@ -172,22 +177,28 @@ class PessoasCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
 """
 
 
-class PessoasUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
-    login_url = reverse_lazy("login")
-    group_required = [u"", u""]
+class PessoasUpdate(UpdateView):
+    template_name = "cadastros/form.html"
     model = Pessoas
+    success_url = reverse_lazy("index")
     fields = [
-        "Usuario",
         "Nome",
         "Apelido",
         "DataNascimento",
+        "Telefone",
         "CPF",
         "RG",
-        "EMail",
-        "Senha",
     ]
-    template_name = "cadastros/form.html"
-    success_url = reverse_lazy("pessoas-listar")
+
+    def get_object(self, queryset=None):
+        self.object = get_object_or_404(Pessoas, Usuario=self.request.user)
+        return self.object
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["titulo"] = "Meus dados pessoais"
+        context["botao"] = "Atualizar"
+        return context
 
 
 """
@@ -195,47 +206,6 @@ class PessoasUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         self.object = get_object_or_404(Pessoas, pk=self.kwargs['pk'], Usuario=self.request.user)
         return self.object
-"""
-
-
-class PessoasDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
-    login_url = reverse_lazy("login")
-    group_required = [u"", u""]
-    model = Pessoas
-    fields = [
-        "Usuario",
-        "Nome",
-        "Apelido",
-        "DataNascimento",
-        "CPF",
-        "RG",
-        "EMail",
-        "Senha",
-    ]
-    template_name = "cadastros/form.html"
-    success_url = reverse_lazy("pessoas-listar")
-
-
-"""
-    # Este código faz com que ocorra uma validação no DELETE, permitindo somente ações feitas pelo próprio usuário cadastrado
-    def get_object(self, queryset=None):
-        self.object = get_object_or_404(Pessoas, pk=self.kwargs['pk'], Usuario=self.request.user)
-        return self.object
-"""
-
-
-class PessoasList(GroupRequiredMixin, LoginRequiredMixin, ListView):
-    login_url = reverse_lazy("login")
-    group_required = [u"", u""]
-    model = Pessoas
-    template_name = "cadastros/listas/pessoas.html"
-
-
-"""
-    # Esse código garante que o queryset retornado é somente o do usuário logado
-    def get_queryset(self):
-        self.object_list = Pessoas.objects.filter(Usuario=self.request.user)
-        return self.object_list
 """
 
 

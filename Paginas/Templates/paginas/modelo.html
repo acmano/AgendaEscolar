@@ -82,7 +82,6 @@
                                 <a class="dropdown-item" href="{% url 'alimentos-listar' %}">Alimentos</a>
                                 <a class="dropdown-item" href="{% url 'itens-listar' %}">Itens</a>
                                 <a class="dropdown-item" href="{% url 'medicamentos-listar' %}">Medicamentos</a>
-                                <a class="dropdown-item" href="{% url 'pessoas-listar' %}">Pessoas</a>
                                 <a class="dropdown-item" href="{% url 'turmas-listar' %}">Turmas</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'alunos-listar' %}">Alunos</a>
@@ -126,7 +125,7 @@
                                 <span id="username">{{ request.user }}</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="atualizar-dados">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     Meus Dados
                                 </a>
@@ -209,7 +208,7 @@
 
 
     <!-- Importação do JS -->
-    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 

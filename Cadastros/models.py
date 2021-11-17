@@ -97,26 +97,25 @@ class Pessoas(models.Model):
     Pessoa_id = models.AutoField(
         auto_created=True, primary_key=True, serialize=True, verbose_name="Pessoa_id"
     )
-    Usuario = models.ForeignKey(User, on_delete=models.PROTECT)
+    Usuario = models.OneToOneField(User, on_delete=models.PROTECT)
     Nome = models.CharField(
         max_length=50,
         verbose_name="Nome",
         blank=False,
-        null=False,
+        null=True,
         unique=True,
     )
     Apelido = models.CharField(
         max_length=50,
         verbose_name="Apelido",
         blank=False,
-        null=False,
+        null=True,
         unique=False,
     )
     DataNascimento = models.DateField(verbose_name="Data de Nascimento", null=True)
+    Telefone = models.CharField(max_length=16, null=True)
     CPF = BRCPFField(verbose_name="CPF", null=True)
     RG = models.CharField(verbose_name="RG", max_length=11, null=True)
-    EMail = models.EmailField()
-    Senha = models.CharField(max_length=150)
 
     def __str__(self):
         return "{} ({})".format(self.Apelido, self.Nome)
