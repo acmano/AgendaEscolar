@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.constraints import UniqueConstraint
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -109,6 +110,7 @@ class Pessoas(models.Model):
     Pessoa_id = models.AutoField(
         auto_created=True, primary_key=True, serialize=True, verbose_name="Pessoa_id"
     )
+    #    Usuario = models.ForeignKey(User, on_delete=models.PROTECT)
     Nome = models.CharField(
         max_length=50,
         verbose_name="Nome",

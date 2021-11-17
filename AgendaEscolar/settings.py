@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django_cleanup.apps.CleanupConfig',
     "Paginas.apps.PaginasConfig",
     "Cadastros.apps.CadastrosConfig",
+    "Usuarios.apps.UsuariosConfig",
     "crispy_forms",
 ]
 
@@ -135,3 +137,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Configurações de Autenticação
+LOGIN_REDIRECT_URL = "index"
+LOGOUT_REDIRECT_URL = "login"
+LOGIN_URL = "login"

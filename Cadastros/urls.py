@@ -318,6 +318,6 @@ urlpatterns += [
     path(
         "prescricao/listar/",
         PrescricoesList.as_view(),
-        name="prescricao-listar",
+        name="prescricoes-listar",
     ),
 ]

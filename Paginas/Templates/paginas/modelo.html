@@ -64,6 +64,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav mr-auto">
 
+                        {% if request.user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'index' %}">
                                 <i class="fa fa-home" aria-hidden="true"></i>
@@ -71,7 +72,6 @@
                             </a>
                         </li>
 
-                        {% if request.user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink"
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -112,7 +112,6 @@
                     </ul>
 
                     <ul class="navbar-nav">
-
                         {% if request.user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink"
@@ -121,12 +120,28 @@
                                 <span id="username">{{ request.user }}</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    Meus Dados
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    Alterar senha
+                                </a>
                                 <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'logout' %}">
                                     <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                    Sair</a>
+                                    Sair
+                                </a>
                             </div>
                         </li>
                         {% else %}
+                        <li class="nav-item ">
+                            <a class="nav-link" href='registrar'>
+                                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                Registrar
+                            </a>
+                        </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="{% url 'login' %}">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i>
@@ -147,7 +162,6 @@
         <!-- Bloco de conteúdo -->
         <div class="container py-5">
             {% block conteudo %}
-            <h3>Página inicial</h3>
             {% endblock %}
         </div>
 
