@@ -17,10 +17,10 @@
     {% for item in object_list %}
     <tr>
       <td>
-        {{ item.nome }}
+        {{ item.Nome }}
       </td>
       <td>
-        {{ item.descricao }}
+        {{ item.Descricao }}
       </td>
       <td>
         <a href="{% url 'item-editar' item.pk %}" class="btn btn-warning btn-sm" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>

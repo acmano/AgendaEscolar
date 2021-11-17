@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-3z@!5@3#%=7n*$mxvzc0na3)11%#41(sstl%q%t#!zti^elb^9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0", "localhost"]
+ALLOWED_HOSTS = ["0.0.0.0", "localhost", "177.144.130.120"]
 
 
 # Application definition
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'django_cleanup.apps.CleanupConfig',
+    "django_cleanup.apps.CleanupConfig",
     "Paginas.apps.PaginasConfig",
     "Cadastros.apps.CadastrosConfig",
     "Usuarios.apps.UsuariosConfig",
