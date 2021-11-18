@@ -150,45 +150,11 @@ class UserCreate(CreateView):
         return context
 
 
-"""
-    # Esse código permite criar 'tags', que poderão ser utilizadas no formulário html, através da tag {{ titulo}}, como nesse exemplo
-    # No código html, quando usar {{ titulo }} e, por acaso, o conteúdo dessa tag não tiver sido definido na view, é possível 
-    # fazer da seguinte forma: {{ titulo|default_if_none:"Valor default a ser utilizado" }}
-    # no exemplo do video, esse negócio não funcionou
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context["titulo"] = "Cadastro de Pessoas"
-        return context
-"""
-
-
-"""
-    # Usar esse código para atribuir um valor default para o objeto
-    # Neste caso, pega o usuário logado e atribui ao campo Usuario da classe Pessoas
-    def form_valid(self, form):
-        # Antes do 'super' o objeto ainda não foi criado
-        form.instance.Usuario = self.request.user
-        url = super().form_valid(form)
-        # Depois do 'super' o objeto já está criado
-        É possível realizar ações após a validação do formulário
-        self.object.Apelido = ""
-        self.object.save()
-        return url
-"""
-
-
 class PessoasUpdate(UpdateView):
     template_name = "cadastros/form.html"
     model = Pessoas
-    success_url = reverse_lazy("index")
-    fields = [
-        "Nome",
-        "Apelido",
-        "DataNascimento",
-        "Telefone",
-        "CPF",
-        "RG",
-    ]
+    fields = ["Nome", "Apelido", "DataNascimento", "Telefone", "CPF", "RG"]
+    success_url = reverse_lazy("atualizardados")
 
     def get_object(self, queryset=None):
         self.object = get_object_or_404(Pessoas, Usuario=self.request.user)
@@ -437,6 +403,44 @@ class MatriculasList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     template_name = "cadastros/listas/matriculas.html"
 
 
+# Nivel 2 Matriculas
+from .models import TurmasProfessores
+
+
+class TurmasProfessoresCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = TurmasProfessores
+    fields = ["Turma", "Professor"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("turmasprofessores-listar")
+
+
+class TurmasProfessoresUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = TurmasProfessores
+    fields = ["Turma", "Professor"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("turmasprofessores-listar")
+
+
+class TurmasProfessoresDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = TurmasProfessores
+    fields = ["Turma", "Professor"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("turmasprofessores-listar")
+
+
+class TurmasProfessoresList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = TurmasProfessores
+    template_name = "cadastros/listas/turmasprofessores.html"
+
+
 # Nivel 2 TurmasProfessores
 from .models import TurmasProfessores
 
@@ -483,7 +487,14 @@ class PrescricoesCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy("login")
     group_required = [u"", u""]
     model = Prescricoes
-    fields = ["Aluno", "Medicamento"]
+    fields = [
+        "Alunos",
+        "Medicamento",
+        "DataInicial",
+        "DataFinal",
+        "Posologia",
+        "Horarios",
+    ]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("prescricoes-listar")
 
@@ -492,7 +503,14 @@ class PrescricoesUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy("login")
     group_required = [u"", u""]
     model = Prescricoes
-    fields = ["Aluno", "Medicamento"]
+    fields = [
+        "Alunos",
+        "Medicamento",
+        "DataInicial",
+        "DataFinal",
+        "Posologia",
+        "Horarios",
+    ]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("prescricoes-listar")
 
@@ -501,7 +519,14 @@ class PrescricoesDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy("login")
     group_required = [u"", u""]
     model = Prescricoes
-    fields = ["Aluno", "Medicamento"]
+    fields = [
+        "Alunos",
+        "Medicamento",
+        "DataInicial",
+        "DataFinal",
+        "Posologia",
+        "Horarios",
+    ]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("prescricoes-listar")
 
@@ -549,3 +574,22 @@ class AgendasList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     group_required = [u"", u""]
     model = Agendas
     template_name = "cadastros/listas/Agendas.html"
+
+
+# Nivel 2 Prescricoes
+from .forms import AgendaForm
+
+# class AgendaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+class AgendaCreate(CreateView):
+    template_name = "cadastros/listas/agenda.html"
+    form_class = AgendaForm
+    success_url = reverse_lazy("agenda-dados")
+
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.forms import PasswordChangeForm
+
+class PasswordsChangeView(PasswordChangeView):
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy("login")
+
+

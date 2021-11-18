@@ -5,56 +5,47 @@
 {% block conteudo %}
 
 <h3>Lista de Prescrições médicas</h3>
-<a href="{% url 'prescricoes-cadastrar' %}" class="btn btn-primary btn-sm">Adicionar Prescrição</a>
+<a href="{% url 'prescricao-cadastrar' %}" class="btn btn-primary btn-sm">Adicionar Prescrição</a>
 <hr>
 <div class="table-responsive">
   <table class="table table-striped table-bordered">
     <tr>
       <th>Aluno</th>
-    </tr>
-    <tr>
       <th>Medicamento</th>
-    </tr>
-    <tr>
       <th>Data inicial</th>
-    </tr>
-    <tr>
       <th>Data final</th>
-    </tr>
-    <tr>
       <th>Posologia</th>
-    </tr>
-    <tr>
       <th>Horários</th>
+      <th>Ações</th>
     </tr>
     {% for prescricoes in object_list %}
     <tr>
       <td>
-        {{ prescricoes.Aluno.Pessoa.Nome }}
+        {{ prescricoes.Alunos.Pessoa.Nome }}
       </td>
       <td>
         {{ prescricoes.Medicamento.Nome }}
       </td>
       <td>
-        {{ prescricoes.Medicamento.DataInicial }}
+        {{ prescricoes.DataInicial }}
       </td>
       <td>
-        {{ prescricoes.Medicamento.DataFinal }}
+        {{ prescricoes.DataFinal }}
       </td>
       <td>
-        {{ prescricoes.Medicamento.Posologia }}
+        {{ prescricoes.Posologia }}
       </td>
       <td>
-        {{ prescricoes.Medicamento.Horarios }}
+        {{ prescricoes.Horarios }}
       </td>
       <td>
-        <a href="{% url 'prescricoes-editar' prescricoes.pk %}" class="btn btn-warning btn-sm" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-        <a href="{% url 'prescricoes-excluir' prescricoes.pk %}" class="btn btn-danger btn-sm" title="Excluir"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        <a href="{% url 'prescricao-editar' prescricoes.pk %}" class="btn btn-warning btn-sm" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        <a href="{% url 'prescricao-excluir' prescricoes.pk %}" class="btn btn-danger btn-sm" title="Excluir"><i class="fa fa-trash" aria-hidden="true"></i></a>
       </td>
     </tr>
     {% empty %}
     <tr>
-      <td colspan="2">
+      <td colspan="7">
         Nenhuma prescrição cadastrada
       </td>
     </tr>

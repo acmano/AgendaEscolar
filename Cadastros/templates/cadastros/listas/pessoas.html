@@ -5,7 +5,7 @@
 {% block conteudo %}
 
 <h3>Lista de Pessoas</h3>
-<a href="{% url 'pessoa-cadastrar' %}" class="btn btn-primary btn-sm">Adicionar Pessoa</a>
+<a href="{% url 'meusdados' %}" class="btn btn-primary btn-sm">Meus Dados</a>
 <hr>
 <div class="table-responsive">
   <table class="table table-striped table-bordered">
@@ -15,8 +15,6 @@
       <th>Nascimento</th>
       <th>CPF</th>
       <th>RG</th>
-      <th>E-Mail</th>
-      <th>Senha</th>
       <th>Opções</th>
     </tr>
     {% for pessoa in object_list %}
@@ -37,14 +35,7 @@
         {{ Pessoa.RG }}
       </td>
       <td>
-        {{ Pessoa.EMail }}
-      </td>
-      <td>
-        {{ Pessoa.Senha }}
-      </td>
-      <td>
-        <a href="{% url 'pessoa-editar' pessoa.pk %}" class="btn btn-warning btn-sm" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-        <a href="{% url 'pessoa-excluir' pessoa.pk %}" class="btn btn-danger btn-sm" title="Excluir"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        <a href="{% url 'meusdados' pessoa.pk %}" class="btn btn-warning btn-sm" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
       </td>
     </tr>
     {% empty %}

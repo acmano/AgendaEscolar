@@ -1,21 +1,7 @@
-"""
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib.auth import views as auth_views
+from django.urls import path
 
 # Nivel 0 - ALimentos
-from django.urls import path
 from .views import AlimentosCreate
 from .views import AlimentosUpdate
 from .views import AlimentosDelete
@@ -79,22 +65,6 @@ urlpatterns += [
     ),
 ]
 
-# Nivel 0 - Pessoas
-from .views import UserCreate
-from .views import PessoasUpdate
-
-
-urlpatterns += [
-    #   path("endereco/", MinhaView.as_view(), name="endereco"),
-    path(
-        "login/",
-        auth_views.LoginView.as_view(template_name="paginas/login.html"),
-        name="login",
-    ),
-    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
-    path("login/registrar/", UserCreate.as_view(), name="registrar"),
-    path("atualizar-dados/", PessoasUpdate.as_view(), name="atualizar-dados"),
-]
 
 # Nivel 0 - Turmas
 from .views import TurmasCreate
@@ -303,7 +273,7 @@ urlpatterns += [
         name="prescricao-excluir",
     ),
     path(
-        "prescricao/listar/",
+        "prescricoes/listar/",
         PrescricoesList.as_view(),
         name="prescricoes-listar",
     ),
@@ -340,3 +310,26 @@ urlpatterns += [
         name="agendas-listar",
     ),
 ]
+
+
+# Usuarios
+from .views import UserCreate
+from .views import PessoasUpdate
+from .views import AgendaCreate, PasswordsChangeView
+
+from django.contrib.auth import views as auth_views
+
+urlpatterns += [
+    #   path("endereco/", MinhaView.as_view(), name="endereco"),
+    path(
+        "login/",
+        auth_views.LoginView.as_view(template_name="paginas/login.html"),
+        name="login",
+    ),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path("registrar/", UserCreate.as_view(), name="registrar"),
+ #   path("password/", auth_views.PasswordChangeView.as_view(template_name='paginas/password.html'), name="password"),
+    path("atualizardados/", PessoasUpdate.as_view(), name="atualizardados"),
+    path("agenda/dados/", AgendaCreate.as_view(), name="agenda-dados"),
+    path("password/", PasswordsChangeView.as_view(template_name='paginas/password.html'), name="password"),
+] 

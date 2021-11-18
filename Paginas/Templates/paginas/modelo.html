@@ -95,7 +95,7 @@
                             </div>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="{% url 'agendas-listar' %}">
+                            <a class="nav-link" href="{% url 'agenda-dados' %}">
                                 <i class="fa fa-plus-square" aria-hidden="true"></i>
                                 Agenda
                             </a>
@@ -125,11 +125,11 @@
                                 <span id="username">{{ request.user }}</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="atualizar-dados">
+                                <a class="dropdown-item" href={% url 'atualizardados' %}>
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     Meus Dados
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="password">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     Alterar senha
                                 </a>

@@ -5,31 +5,30 @@
 {% block conteudo %}
 
 <h3>Lista de Professores por Turma</h3>
-<a href="{% url 'turmasprofessores-cadastrar' %}" class="btn btn-primary btn-sm">Adicionar Professor à Turma</a>
+<a href="{% url 'turmaprofessor-cadastrar' %}" class="btn btn-primary btn-sm">Adicionar Professor à Turma</a>
 <hr>
 <div class="table-responsive">
   <table class="table table-striped table-bordered">
     <tr>
       <th>Turma</th>
-    </tr>
-    <tr>
       <th>Professor</th>
+      <th>Ações</th>
     </tr>
-    {% for turmasprofessores in object_list %}
+    {% for turmaprofessor in object_list %}
     <tr>
       <td>
-        {{ turmasprofessores.Turma.Nome }}
+        {{ turmaprofessor.Turma.Nome }}
       </td>
       <td>
-        {{ turmasprofessores.Professor.Pessoa.Nome }}
+        {{ turmaprofessor.Professor.Pessoa.Nome }}
       </td>
       <td>
-        <a href="{% url 'turmasprofessores-excluir' turmasprofessores.pk %}" class="btn btn-danger btn-sm" title="Excluir"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        <a href="{% url 'turmaprofessor-excluir' turmaprofessor.pk %}" class="btn btn-danger btn-sm" title="Excluir"><i class="fa fa-trash" aria-hidden="true"></i></a>
       </td>
     </tr>
     {% empty %}
     <tr>
-      <td colspan="2">
+      <td colspan="3">
         Nenhuma professor cadastrado em nenhuma turma
       </td>
     </tr>

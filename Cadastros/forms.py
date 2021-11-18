@@ -17,3 +17,14 @@ class UserForm(UserCreationForm):
             raise ValidationError("O email {} já está em uso.".format(e))
 
         return e
+
+
+from .models import Agendas, AgendasRecados
+
+
+class AgendaForm(forms.Form):
+    agenda = forms.ModelChoiceField(queryset=Agendas.objects.all())
+
+    class Meta:
+        model = Agendas, AgendasRecados
+        fields = ["TurmaProfessor", "Matricula", "Data"]
