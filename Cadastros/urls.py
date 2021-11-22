@@ -315,20 +315,11 @@ urlpatterns += [
 # Usuarios
 
 urlpatterns += [
-    #   path("endereco/", MinhaView.as_view(), name="endereco"),
-    path(
-        "login/",
-        auth_views.LoginView.as_view(template_name="paginas/login.html"),
-        name="login",
-    ),
+    # path("endereco/", MinhaView.as_view(), name="endereco"),
+    # path("login/",auth_views.LoginView.as_view(template_name="paginas/login.html"),name="login",),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
-    path("registrar/", UserCreate.as_view(), name="registrar"),
-    #   path("password/", auth_views.PasswordChangeView.as_view(template_name='paginas/password.html'), name="password"),
+    # path("registrar/", UserCreate.as_view(), name="registrar"),
     path("atualizardados/", PessoasUpdate.as_view(), name="atualizardados"),
     path("agenda/dados/", AgendaCreate.as_view(), name="agenda-dados"),
-    path(
-        "password/",
-        PasswordsChangeView.as_view(template_name="paginas/password.html"),
-        name="password",
-    ),
+    # path("password/",PasswordsChangeView.as_view(template_name="paginas/password.html"),name="password",),
 ]
