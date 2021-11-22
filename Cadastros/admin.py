@@ -33,3 +33,64 @@ admin.site.register(ResponsaveisAlunos)
 admin.site.register(Matriculas)
 admin.site.register(TurmasProfessores)
 admin.site.register(Prescricoes)
+
+
+# Nivel 3
+from .models import Agendas
+from .models import AgendasAlimentos
+from .models import AgendasBanhos
+from .models import AgendasFisiologias
+from .models import AgendasItens
+from .models import AgendasMedicamentos
+from .models import AgendasRecados
+from .models import AgendasSonos
+
+
+class AgendaAlimentoInline(admin.StackedInline):
+    model = AgendasAlimentos
+    extra = 1
+
+
+class AgendasBanhosInline(admin.StackedInline):
+    model = AgendasBanhos
+    extra = 1
+
+
+class AgendasFisiologiasInline(admin.StackedInline):
+    model = AgendasFisiologias
+    extra = 1
+
+
+class AgendasItensInline(admin.StackedInline):
+    model = AgendasItens
+    extra = 1
+
+
+class AgendasMedicamentosInline(admin.StackedInline):
+    model = AgendasMedicamentos
+    extra = 1
+
+
+class AgendasRecadosInline(admin.StackedInline):
+    model = AgendasRecados
+    extra = 1
+
+
+class AgendasSonosInline(admin.StackedInline):
+    model = AgendasSonos
+    extra = 1
+
+
+class AgendaAdmin(admin.ModelAdmin):
+    inlines = [
+        AgendaAlimentoInline,
+        AgendasBanhosInline,
+        AgendasFisiologiasInline,
+        AgendasItensInline,
+        AgendasMedicamentosInline,
+        AgendasRecadosInline,
+        AgendasSonosInline,
+    ]
+
+
+admin.site.register(Agendas, AgendaAdmin)

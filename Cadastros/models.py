@@ -278,7 +278,7 @@ class Prescricoes(models.Model):
         serialize=True,
         verbose_name="Matricula_id",
     )
-    Alunos = models.ForeignKey(Alunos, db_index=True, on_delete=models.PROTECT)
+    Aluno = models.ForeignKey(Alunos, db_index=True, on_delete=models.PROTECT)
     Medicamento = models.ForeignKey(
         Medicamentos, db_index=True, on_delete=models.PROTECT
     )
