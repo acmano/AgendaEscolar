@@ -129,7 +129,7 @@
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     Meus Dados
                                 </a>
-                                <a class="dropdown-item" href="password">
+                                <a class="dropdown-item" href="{% url 'password' %}">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     Alterar senha
                                 </a>
@@ -142,7 +142,7 @@
                         </li>
                         {% else %}
                         <li class="nav-item ">
-                            <a class="nav-link" href='registrar'>
+                            <a class="nav-link" href="{% url 'registrar' %}">
                                 <i class="fa fa-user-plus" aria-hidden="true"></i>
                                 Registrar
                             </a>

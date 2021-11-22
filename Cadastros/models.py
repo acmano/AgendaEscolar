@@ -171,6 +171,7 @@ class Pessoas(models.Model):
     Telefone = models.CharField(max_length=16, null=True)
     CPF = BRCPFField(verbose_name="CPF", null=True)
     RG = models.CharField(verbose_name="RG", max_length=11, null=True)
+    Usuario = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.Apelido} ({self.Nome})"
