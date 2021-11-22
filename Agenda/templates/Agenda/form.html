@@ -1,0 +1,122 @@
+{% extends 'paginas/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+
+<h3>Agendas</h3>
+
+<hr>
+<div class="table-responsive">
+  <form method="post">
+    {% csrf_token %}
+    {{ Agendas.as_p }}
+  	<hr>
+    <h4>Alimentação</h4>
+    {{ Alimentos.management_form }}
+    {% for alimento in Alimentos %}
+    <div class = "Alimentos">
+      {{ alimento }}
+    </div>
+    {% endfor %}
+    <hr>
+    <h4>Banhos</h4>
+    {{ Banhos.management_form }}
+    {% for banho in Banhos %}
+    <div class = "Banhos">
+      {{ banho }}
+    </div>
+    {% endfor %}
+    <hr>
+    <h4>Fisiologia</h4>
+    {{ Fisiologias.management_form }}
+    {% for fisiologia in Fisiologias %}
+    <div class = "Fisiologias">
+      {{ fisiologia }}
+    </div>
+    {% endfor %}
+    <hr>
+    <h4>Itens</h4>
+    {{ Itens.management_form }}
+    {% for item in Itens %}
+    <div class = "Itens">
+      {{ item }}
+    </div>
+    {% endfor %}
+    <hr>
+    <h4>Medicamentos</h4>
+    {{ Medicamentos.management_form }}
+    {% for medicamento in Medicamentos %}
+    <div class = "Medicamentos">
+      {{ medicamento }}
+    </div>
+    {% endfor %}
+    <hr>
+    <h4>Sonos</h4>
+    {{ Sonos.management_form }}
+    {% for sono in Sonos %}
+    <div class = "Sonos">
+      {{ sono }}
+    </div>
+    {% endfor %}
+    <hr>
+    <h4>Recados</h4>
+    {{ Recados.management_form }}
+    {% for recado in Recados %}
+    <div class = "Recados">
+      {{ recado }}
+    </div>
+    {% endfor %}
+
+    <hr>
+    <div class="Botoes">
+      <button class='btn btn-primary' type="submit">Salvar</button>
+      <a class="btn btn-danger" href={% url 'agenda_lista' %}>Cancelar</a>
+    </div>
+  </form>
+</div>
+
+{% endblock conteudo %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+    $(function() {
+        $('.Alimentos').formset({
+            prefix: '{{ Alimentos.prefix }}',
+            addText: 'Adicionar novo alimento',
+            deleteText: 'Remover este alimento',
+        });
+        $('.Banhos').formset({
+            prefix: '{{ Banhos.prefix }}',
+            addText: 'Adicionar novo banho',
+            deleteText: 'Remover este banho',
+        });
+        $('.Fisiologias').formset({
+            prefix: '{{ Fisiologias.prefix }}',
+            addText: 'Adicionar nova ocorrëncia',
+            deleteText: 'Remover esta ocorrëncia',
+        });
+        $('.Itens').formset({
+            prefix: '{{ Itens.prefix }}',
+            addText: 'Adicionar novo item',
+            deleteText: 'Remover este item',
+        });
+        $('.Medicamentos').formset({
+            prefix: '{{ Medicamentos.prefix }}',
+            addText: 'Adicionar novo medicamento',
+            deleteText: 'Remover este medicamento',
+        });
+        $('.Sonos').formset({
+            prefix: '{{ Sonos.prefix }}',
+            addText: 'Adicionar nova ocorrência',
+            deleteText: 'Remover esta ocorrência',
+        });
+        $('.Recados').formset({
+            prefix: '{{ Recados.prefix }}',
+            addText: 'Adicionar novo recado',
+            deleteText: 'Remover este recado',
+        });
+    })
+</script>
+{% endblock scripts %}

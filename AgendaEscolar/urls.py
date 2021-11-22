@@ -9,6 +9,7 @@ urlpatterns = [
     path("", include("Paginas.urls")),
     path("", include("Cadastros.urls")),
     path("", include("Usuarios.urls")),
+    path("", include("Agenda.urls")),
 ]
 
 if settings.DEBUG:

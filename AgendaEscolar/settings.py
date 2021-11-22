@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "Paginas.apps.PaginasConfig",
     "Cadastros.apps.CadastrosConfig",
     "Agenda.apps.AgendaConfig",
+    "Usuarios.apps.UsuariosConfig",
 ]
 
 # Crispy Forms
