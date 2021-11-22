@@ -21,6 +21,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    # Django
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -28,11 +29,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_cleanup.apps.CleanupConfig",
+    # Terceiros
+    "crispy_forms",
+    "localflavor",
+    # Meus
     "Paginas.apps.PaginasConfig",
     "Cadastros.apps.CadastrosConfig",
     "Agenda.apps.AgendaConfig",
-    "crispy_forms",
-    "localflavor",
 ]
 
 # Crispy Forms

@@ -1,11 +1,56 @@
+"""
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+"""
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
 # Nivel 0 - ALimentos
-from .views import AlimentosCreate
-from .views import AlimentosUpdate
-from .views import AlimentosDelete
-from .views import AlimentosList
+from .views import AlimentosCreate, AlimentosUpdate, AlimentosDelete, AlimentosList
+from .views import ItensCreate, ItensUpdate, ItensDelete, ItensList
+from .views import (
+    MedicamentosCreate,
+    MedicamentosUpdate,
+    MedicamentosDelete,
+    MedicamentosList,
+)
+from .views import TurmasCreate, TurmasUpdate, TurmasDelete, TurmasList
+from .views import AlunosCreate, AlunosUpdate, AlunosDelete, AlunosList
+from .views import (
+    ProfessoresCreate,
+    ProfessoresUpdate,
+    ProfessoresDelete,
+    ProfessoresList,
+)
+from .views import (
+    ResponsaveisCreate,
+    ResponsaveisUpdate,
+    ResponsaveisDelete,
+    ResponsaveisList,
+)
+from .views import (
+    ResponsaveisAlunosCreate,
+    ResponsaveisAlunosUpdate,
+    ResponsaveisAlunosDelete,
+    ResponsaveisAlunosList,
+)
+from .views import MatriculasCreate, MatriculasUpdate, MatriculasDelete, MatriculasList
+from .views import (
+    TurmasProfessoresCreate,
+    TurmasProfessoresUpdate,
+    TurmasProfessoresDelete,
+    TurmasProfessoresList,
+)
+from .views import (
+    PrescricoesCreate,
+    PrescricoesUpdate,
+    PrescricoesDelete,
+    PrescricoesList,
+)
+from .views import AgendasCreate, AgendasUpdate, AgendasDelete, AgendasList
+from .views import UserCreate, PessoasUpdate, AgendaCreate, PasswordsChangeView
 
 
 urlpatterns = [
@@ -22,11 +67,6 @@ urlpatterns = [
     path("alimentos/listar/", AlimentosList.as_view(), name="alimentos-listar"),
 ]
 
-from .views import ItensCreate
-from .views import ItensUpdate
-from .views import ItensDelete
-from .views import ItensList
-
 # Nivel 0 - Itens
 urlpatterns += [
     #   path("endereco/", MinhaView.as_view(), name="endereco"),
@@ -37,10 +77,6 @@ urlpatterns += [
 ]
 
 # Nivel 0 - Medicamentos
-from .views import MedicamentosCreate
-from .views import MedicamentosUpdate
-from .views import MedicamentosDelete
-from .views import MedicamentosList
 
 
 urlpatterns += [
@@ -67,10 +103,6 @@ urlpatterns += [
 
 
 # Nivel 0 - Turmas
-from .views import TurmasCreate
-from .views import TurmasUpdate
-from .views import TurmasDelete
-from .views import TurmasList
 
 
 urlpatterns += [
@@ -83,10 +115,6 @@ urlpatterns += [
 
 
 # Nivel 1 - Alunos
-from .views import AlunosCreate
-from .views import AlunosUpdate
-from .views import AlunosDelete
-from .views import AlunosList
 
 
 urlpatterns += [
@@ -99,10 +127,6 @@ urlpatterns += [
 
 
 # Nivel 1 - Professores
-from .views import ProfessoresCreate
-from .views import ProfessoresUpdate
-from .views import ProfessoresDelete
-from .views import ProfessoresList
 
 
 urlpatterns += [
@@ -125,10 +149,6 @@ urlpatterns += [
 
 
 # Nivel 1 - Responsaveis
-from .views import ResponsaveisCreate
-from .views import ResponsaveisUpdate
-from .views import ResponsaveisDelete
-from .views import ResponsaveisList
 
 
 urlpatterns += [
@@ -153,10 +173,6 @@ urlpatterns += [
 
 
 # Nivel 2 - ResponsaveisAlunos
-from .views import ResponsaveisAlunosCreate
-from .views import ResponsaveisAlunosUpdate
-from .views import ResponsaveisAlunosDelete
-from .views import ResponsaveisAlunosList
 
 
 urlpatterns += [
@@ -185,10 +201,6 @@ urlpatterns += [
 
 
 # Nivel 2 - Matriculas
-from .views import MatriculasCreate
-from .views import MatriculasUpdate
-from .views import MatriculasDelete
-from .views import MatriculasList
 
 
 urlpatterns += [
@@ -217,10 +229,6 @@ urlpatterns += [
 
 
 # Nivel 2 - TurmasProfessores
-from .views import TurmasProfessoresCreate
-from .views import TurmasProfessoresUpdate
-from .views import TurmasProfessoresDelete
-from .views import TurmasProfessoresList
 
 
 urlpatterns += [
@@ -249,10 +257,6 @@ urlpatterns += [
 
 
 # Nivel 2 - Prescricoes
-from .views import PrescricoesCreate
-from .views import PrescricoesUpdate
-from .views import PrescricoesDelete
-from .views import PrescricoesList
 
 
 urlpatterns += [
@@ -281,10 +285,6 @@ urlpatterns += [
 
 
 # Nivel 3 - Agendas
-from .views import AgendasCreate
-from .views import AgendasUpdate
-from .views import AgendasDelete
-from .views import AgendasList
 
 
 urlpatterns += [
@@ -313,11 +313,6 @@ urlpatterns += [
 
 
 # Usuarios
-from .views import UserCreate
-from .views import PessoasUpdate
-from .views import AgendaCreate, PasswordsChangeView
-
-from django.contrib.auth import views as auth_views
 
 urlpatterns += [
     #   path("endereco/", MinhaView.as_view(), name="endereco"),
@@ -328,8 +323,12 @@ urlpatterns += [
     ),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("registrar/", UserCreate.as_view(), name="registrar"),
- #   path("password/", auth_views.PasswordChangeView.as_view(template_name='paginas/password.html'), name="password"),
+    #   path("password/", auth_views.PasswordChangeView.as_view(template_name='paginas/password.html'), name="password"),
     path("atualizardados/", PessoasUpdate.as_view(), name="atualizardados"),
     path("agenda/dados/", AgendaCreate.as_view(), name="agenda-dados"),
-    path("password/", PasswordsChangeView.as_view(template_name='paginas/password.html'), name="password"),
-] 
+    path(
+        "password/",
+        PasswordsChangeView.as_view(template_name="paginas/password.html"),
+        name="password",
+    ),
+]

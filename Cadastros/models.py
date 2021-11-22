@@ -1,3 +1,9 @@
+"""
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+"""
 from django.db import models
 from django.db.models.constraints import UniqueConstraint
 from django.contrib.auth.models import User
@@ -7,6 +13,13 @@ from localflavor.br.models import BRCPFField
 
 # Nivel 0 Alimentos
 class Alimentos(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     Alimento_id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -24,9 +37,16 @@ class Alimentos(models.Model):
     )
 
     def __str__(self):
-        return "{}".format(self.Nome)
+        return f"{self.Nome}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "Alimentos"
         ordering = ("Nome",)
         verbose_name = "Alimento"
@@ -36,6 +56,13 @@ class Alimentos(models.Model):
 
 # Nivel 0 Itens
 class Itens(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     Item_id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -53,9 +80,16 @@ class Itens(models.Model):
     )
 
     def __str__(self):
-        return "{}".format(self.Nome)
+        return f"{self.Nome}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "Itens"
         ordering = ("Nome",)
         verbose_name = "Item"
@@ -65,6 +99,13 @@ class Itens(models.Model):
 
 # Nivel 0 Medicamentos
 class Medicamentos(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     Medicamento_id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -82,9 +123,16 @@ class Medicamentos(models.Model):
     )
 
     def __str__(self):
-        return "{}".format(self.Nome)
+        return f"{self.Nome}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "Medicamentos"
         ordering = ("Nome",)
         verbose_name = "Medicamento"
@@ -94,6 +142,13 @@ class Medicamentos(models.Model):
 
 # Nivel 0 Pessoas
 class Pessoas(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     Pessoa_id = models.AutoField(
         auto_created=True, primary_key=True, serialize=True, verbose_name="Pessoa_id"
     )
@@ -118,9 +173,16 @@ class Pessoas(models.Model):
     RG = models.CharField(verbose_name="RG", max_length=11, null=True)
 
     def __str__(self):
-        return "{} ({})".format(self.Apelido, self.Nome)
+        return f"{self.Apelido} ({self.Nome})"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "Pessoas"
         ordering = ("Nome",)
         verbose_name = "Pessoa"
@@ -130,6 +192,13 @@ class Pessoas(models.Model):
 
 # Nivel 0 Turmas
 class Turmas(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     TurmaId = models.AutoField(
         auto_created=True, primary_key=True, serialize=True, verbose_name="TurmaId"
     )
@@ -144,9 +213,16 @@ class Turmas(models.Model):
     AnoEscolar = models.IntegerField(verbose_name="Ano Escolar")
 
     def __str__(self):
-        return "{}".format(self.Nome)
+        return f"{self.Nome}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "Turmas"
         ordering = ("AnoLetivo", "AnoEscolar")
         verbose_name = "Turma"
@@ -156,15 +232,29 @@ class Turmas(models.Model):
 
 # Nivel 1 Alunos
 class Alunos(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     Aluno_id = models.AutoField(
         auto_created=True, primary_key=True, serialize=True, verbose_name="Aluno_id"
     )
     Pessoa = models.OneToOneField(Pessoas, db_index=True, on_delete=models.PROTECT)
 
     def __str__(self):
-        return "{}".format(self.Pessoa.Nome)
+        return f"{self.Pessoa}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "Alunos"
         verbose_name = "Aluno"
         UniqueConstraint(fields=["Aluno_id"], name="AlunosPK")
@@ -173,15 +263,29 @@ class Alunos(models.Model):
 
 # Nivel 1 Professores
 class Professores(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     Professor_id = models.AutoField(
         auto_created=True, primary_key=True, serialize=True, verbose_name="Professor_id"
     )
     Pessoa = models.OneToOneField(Pessoas, db_index=True, on_delete=models.PROTECT)
 
     def __str__(self):
-        return "{}".format(self.Pessoa.Nome)
+        return f"{self.Pessoa}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "Professores"
         verbose_name = "Professor"
         UniqueConstraint(fields=["Professor_id"], name="ProfessorPK")
@@ -190,6 +294,13 @@ class Professores(models.Model):
 
 # Nivel 1 Responsaveis
 class Responsaveis(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     Responsavel_id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -199,9 +310,16 @@ class Responsaveis(models.Model):
     Pessoa = models.OneToOneField(Pessoas, db_index=True, on_delete=models.PROTECT)
 
     def __str__(self):
-        return "{}".format(self.Pessoa.Nome)
+        return f"{self.Pessoa}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "Responsaveis"
         verbose_name = "Responsavel"
         UniqueConstraint(fields=["Responsavel_id"], name="ResponsavelPK")
@@ -210,6 +328,13 @@ class Responsaveis(models.Model):
 
 # Nivel 2 ResponsaveisAlunos
 class ResponsaveisAlunos(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     ResponsavelAluno_id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -222,9 +347,16 @@ class ResponsaveisAlunos(models.Model):
     Aluno = models.ForeignKey(Alunos, db_index=True, on_delete=models.PROTECT)
 
     def __str__(self):
-        return "{}:{}".format(self.Responsavel.Pessoa.Nome, self.Aluno.Pessoa.Nome)
+        return f"{self.Responsavel}:{self.Aluno}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "ResponsaveisAlunos"
         verbose_name = "ResponsavelAluno"
         UniqueConstraint(fields=["ResponsavelAluno_id"], name="ResponsavelAlunoPK")
@@ -232,6 +364,13 @@ class ResponsaveisAlunos(models.Model):
 
 # Nivel 2 Matriculas
 class Matriculas(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     Matricula_id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -242,9 +381,16 @@ class Matriculas(models.Model):
     Aluno = models.ForeignKey(Alunos, db_index=True, on_delete=models.PROTECT)
 
     def __str__(self):
-        return "{}:{}".format(self.Turma.Nome, self.Aluno.Pessoa.Nome)
+        return f"{self.Turma}:{self.Aluno}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "Matriculas"
         verbose_name = "Matrículas"
         UniqueConstraint(fields=["Matricula_id"], name="MatriculaPK")
@@ -252,6 +398,13 @@ class Matriculas(models.Model):
 
 # Nivel 2 TurmasProfessores
 class TurmasProfessores(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     TurmaProfessor_id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -262,9 +415,16 @@ class TurmasProfessores(models.Model):
     Professor = models.ForeignKey(Professores, db_index=True, on_delete=models.PROTECT)
 
     def __str__(self):
-        return "{}:{}".format(self.Turma.Nome, self.Professor.Pessoa.Nome)
+        return f"{self.Turma}:{self.Professor}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "TurmasProfessores"
         verbose_name = "Professores por Turma"
         UniqueConstraint(fields=["TurmaProfessor_id"], name="TurmaProfessorPK")
@@ -272,6 +432,13 @@ class TurmasProfessores(models.Model):
 
 # Nivel 2 Prescricoes
 class Prescricoes(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     Prescricao_id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -288,9 +455,16 @@ class Prescricoes(models.Model):
     Horarios = models.TextField(blank=False, null=False)
 
     def __str__(self):
-        return "{}:{}".format(self.Aluno.Pessoa.Nome, self.Medicamento.Nome)
+        return f"{self.Aluno}:{self.Medicamento}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "Prescricoes"
         verbose_name = "Prescrições"
         UniqueConstraint(fields=["Prescricao_id"], name="PrescricaoPK")
@@ -298,6 +472,13 @@ class Prescricoes(models.Model):
 
 # Nivel 3 Agendas
 class Agendas(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     Agenda_id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -311,11 +492,16 @@ class Agendas(models.Model):
     Data = models.DateField(null=False, blank=False)
 
     def __str__(self):
-        return "{}:{}:{}".format(
-            self.TurmaProfessor.Turma.Nome, self.Matricula.Aluno.Pessoa.Nome, self.Data
-        )
+        return f"{self.TurmaProfessor}:{self.Matricula}:{self.Data}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "Agendas"
         verbose_name = "Agendas"
         UniqueConstraint(fields=["Agenda_id"], name="AgendaPK")
@@ -324,6 +510,13 @@ class Agendas(models.Model):
 
 # Nivel 4 AgendasAlimentos
 class AgendasAlimentos(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     Aceite = (
         ("O", "Ótimo"),
         ("R", "Regular"),
@@ -343,12 +536,16 @@ class AgendasAlimentos(models.Model):
     Hora = models.TimeField(null=False, blank=False)
 
     def __str__(self):
-        return "{}:{}".format(
-            self.Agenda.Matricula.Aluno.Pessoa.Nome,
-            self.Agenda.Data,
-        )
+        return f"{self.Agenda}:{self.Alimento}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "AgendasAlimentos"
         verbose_name = "Alimentos da Agenda"
         UniqueConstraint(fields=["AgendaAlimento_id"], name="AgendaAlimentoPK")
@@ -356,6 +553,13 @@ class AgendasAlimentos(models.Model):
 
 # Nivel 4 AgendasBanhos
 class AgendasBanhos(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     AgendaBanho_id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -367,12 +571,16 @@ class AgendasBanhos(models.Model):
     Hora = models.TimeField(null=False, blank=False)
 
     def __str__(self):
-        return "{}:{}".format(
-            self.Agenda.Matricula.Aluno.Pessoa.Nome,
-            self.Agenda.Data,
-        )
+        return f"{self.Agenda}:{self.Hora}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "AgendasBanhos"
         verbose_name = "Banhos da Agenda"
         UniqueConstraint(fields=["AgendaBanho_id"], name="AgendaBanhoPK")
@@ -380,6 +588,13 @@ class AgendasBanhos(models.Model):
 
 # Nivel 4 AgendasFisiologias
 class AgendasFisiologias(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     Fisiologia = (
         ("F", "Fralda"),
         ("U", "Urina"),
@@ -400,12 +615,16 @@ class AgendasFisiologias(models.Model):
     Hora = models.TimeField(null=False, blank=False)
 
     def __str__(self):
-        return "{}:{}".format(
-            self.Agenda.Matricula.Aluno.Pessoa.Nome,
-            self.Agenda.Data,
-        )
+        return f"{self.Agenda}:{self.Hora}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "AgendasFisiologias"
         verbose_name = "Fisiologias da Agenda"
         UniqueConstraint(fields=["AgendaFisiologia_id"], name="AgendaFisiologiaPK")
@@ -413,6 +632,13 @@ class AgendasFisiologias(models.Model):
 
 # Nivel 4 AgendasItens
 class AgendasItens(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     AgendaAlimento_id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -424,12 +650,16 @@ class AgendasItens(models.Model):
     Item = models.ForeignKey(Itens, db_index=True, on_delete=models.PROTECT)
 
     def __str__(self):
-        return "{}:{}".format(
-            self.Agenda.Matricula.Aluno.Pessoa.Nome,
-            self.Agenda.Data,
-        )
+        return f"{self.Agenda}:{self.Item}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "AgendasItens"
         verbose_name = "Itens da Agenda"
         UniqueConstraint(fields=["AgendaItem_id"], name="AgendaItemPK")
@@ -437,6 +667,13 @@ class AgendasItens(models.Model):
 
 # Nivel 4 AgendasMedicamentos
 class AgendasMedicamentos(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     AgendaMedicamento_id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -450,12 +687,16 @@ class AgendasMedicamentos(models.Model):
     PosologiaAdministrada = models.CharField(max_length=50)
 
     def __str__(self):
-        return "{}:{}".format(
-            self.Agenda.Matricula.Aluno.Pessoa.Nome,
-            self.Agenda.Data,
-        )
+        return f"{self.Agenda}:{self.Hora}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "AgendasMedicamentos"
         verbose_name = "Medicamentos da Agenda"
         UniqueConstraint(fields=["AgendaMedicamento_id"], name="AgendaMedicamentoPK")
@@ -463,6 +704,13 @@ class AgendasMedicamentos(models.Model):
 
 # Nivel 4 AgendasRecados
 class AgendasRecados(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     AgendaRecado_id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -474,12 +722,16 @@ class AgendasRecados(models.Model):
     Recado = models.TextField(blank=False, null=False)
 
     def __str__(self):
-        return "{}:{}".format(
-            self.Agenda.Matricula.Aluno.Pessoa.Nome,
-            self.Agenda.Data,
-        )
+        return f"{self.Agenda}:{self.Recado}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "AgendasRecados"
         verbose_name = "Recados da Agenda"
         UniqueConstraint(fields=["AgendaRecado_id"], name="AgendaRecadoPK")
@@ -487,6 +739,13 @@ class AgendasRecados(models.Model):
 
 # Nivel 4 AgendasSonos
 class AgendasSonos(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
     AgendaSono_id = models.AutoField(
         auto_created=True,
         primary_key=True,
@@ -499,12 +758,16 @@ class AgendasSonos(models.Model):
     Fim = models.TimeField(null=False, blank=False)
 
     def __str__(self):
-        return "{}:{}".format(
-            self.Agenda.Matricula.Aluno.Pessoa.Nome,
-            self.Agenda.Data,
-        )
+        return f"{self.Agenda}:{self.Inicio}"
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
         db_table = "AgendasSonos"
         verbose_name = "Sonos da Agenda"
         UniqueConstraint(fields=["AgendaSono_id"], name="AgendaSonoPK")
