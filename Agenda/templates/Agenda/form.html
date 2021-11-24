@@ -2,16 +2,20 @@
 
 {% load static %}
 
+{% load crispy_forms_tags %}
+
 {% block conteudo %}
+<h3>Agenda de {{ Agendas.Matricula }} / {{ Agendas.Data }}</h3>
 
-<h3>Agendas</h3>
-
+{% csrf_token %}
+{{ form|crispy }}
+<p class='lead'>
+  Preencha todos os campos obrigatórios
+</p>
 <hr>
+
 <div class="table-responsive">
-  <form method="post">
-    {% csrf_token %}
-    {{ Agendas.as_p }}
-  	<hr>
+  <form action='' method="post">
     <h4>Alimentação</h4>
     {{ Alimentos.management_form }}
     {% for alimento in Alimentos %}
@@ -80,6 +84,7 @@
 
 
 {% block scripts %}
+<script src="{% static 'js/jquery-mask.min.js' %}"></script>
 <script type="text/javascript">
     $(function() {
         $('.Alimentos').formset({

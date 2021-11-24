@@ -50,6 +50,7 @@ class Alimentos(models.Model):
         db_table = "Alimentos"
         ordering = ("Nome",)
         verbose_name = "Alimento"
+        verbose_name_plural = "Alimentos"
         UniqueConstraint(fields=["Alimento_id"], name="AlimentosPK")
         UniqueConstraint(fields=["Nome"], name="AlimentosAK")
 
@@ -93,6 +94,7 @@ class Itens(models.Model):
         db_table = "Itens"
         ordering = ("Nome",)
         verbose_name = "Item"
+        verbose_name_plural = "Itens"
         UniqueConstraint(fields=["Item_id"], name="ItensPK")
         UniqueConstraint(fields=["Nome"], name="ItensAK")
 
@@ -113,7 +115,11 @@ class Medicamentos(models.Model):
         verbose_name="Medicamento_id",
     )
     Nome = models.CharField(
-        max_length=50, verbose_name="Nome", blank=False, null=False, unique=True
+        max_length=50,
+        blank=False,
+        null=False,
+        unique=True,
+        verbose_name="Nome",
     )
     Descricao = models.CharField(
         max_length=150,
@@ -136,6 +142,7 @@ class Medicamentos(models.Model):
         db_table = "Medicamentos"
         ordering = ("Nome",)
         verbose_name = "Medicamento"
+        verbose_name_plural = "Medicamentos"
         UniqueConstraint(fields=["Medicamento_id"], name="MedicamentosPK")
         UniqueConstraint(fields=["Nome"], name="MedicamentosAK")
 
@@ -167,8 +174,15 @@ class Pessoas(models.Model):
         null=True,
         unique=False,
     )
-    DataNascimento = models.DateField(verbose_name="Data de Nascimento", null=True)
-    Telefone = models.CharField(max_length=16, null=True)
+    DataNascimento = models.DateField(
+        verbose_name="Data de Nascimento",
+        null=True,
+    )
+    Telefone = models.CharField(
+        max_length=16,
+        null=True,
+        verbose_name="Telefone",
+    )
     CPF = BRCPFField(verbose_name="CPF", null=True)
     RG = models.CharField(verbose_name="RG", max_length=11, null=True)
     Usuario = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -187,6 +201,7 @@ class Pessoas(models.Model):
         db_table = "Pessoas"
         ordering = ("Nome",)
         verbose_name = "Pessoa"
+        verbose_name_plural = "Pessoas"
         UniqueConstraint(fields=["Pesoa_id"], name="PessoasAK")
         UniqueConstraint(fields=["Nome"], name="PessoasAK")
 
@@ -227,6 +242,7 @@ class Turmas(models.Model):
         db_table = "Turmas"
         ordering = ("AnoLetivo", "AnoEscolar")
         verbose_name = "Turma"
+        verbose_name_plural = "Turmas"
         UniqueConstraint(fields=["TurmaId"], name="TurmasPK")
         UniqueConstraint(fields=["Nome"], name="TurmasAK")
 
@@ -258,6 +274,7 @@ class Alunos(models.Model):
 
         db_table = "Alunos"
         verbose_name = "Aluno"
+        verbose_name_plural = "Alunos"
         UniqueConstraint(fields=["Aluno_id"], name="AlunosPK")
         UniqueConstraint(fields=["Pessoa"], name="AlunosAK")
 
@@ -289,6 +306,7 @@ class Professores(models.Model):
 
         db_table = "Professores"
         verbose_name = "Professor"
+        verbose_name_plural = "Professores"
         UniqueConstraint(fields=["Professor_id"], name="ProfessorPK")
         UniqueConstraint(fields=["Pessoa"], name="ProfessorAK")
 
@@ -323,6 +341,7 @@ class Responsaveis(models.Model):
 
         db_table = "Responsaveis"
         verbose_name = "Responsavel"
+        verbose_name_plural = "Responsáveis"
         UniqueConstraint(fields=["Responsavel_id"], name="ResponsavelPK")
         UniqueConstraint(fields=["Pessoa"], name="ResponsavelAK")
 
@@ -359,7 +378,8 @@ class ResponsaveisAlunos(models.Model):
         """
 
         db_table = "ResponsaveisAlunos"
-        verbose_name = "ResponsavelAluno"
+        verbose_name = "Responsavel pelo Aluno"
+        verbose_name_plural = "Responsáveis pelos Alunos"
         UniqueConstraint(fields=["ResponsavelAluno_id"], name="ResponsavelAlunoPK")
 
 
@@ -393,7 +413,8 @@ class Matriculas(models.Model):
         """
 
         db_table = "Matriculas"
-        verbose_name = "Matrículas"
+        verbose_name = "Matrícula"
+        verbose_name_plural = "Matrículas"
         UniqueConstraint(fields=["Matricula_id"], name="MatriculaPK")
 
 
@@ -427,7 +448,8 @@ class TurmasProfessores(models.Model):
         """
 
         db_table = "TurmasProfessores"
-        verbose_name = "Professores por Turma"
+        verbose_name = "Professor da Turma"
+        verbose_name_plural = "Professores das Turmas"
         UniqueConstraint(fields=["TurmaProfessor_id"], name="TurmaProfessorPK")
 
 
@@ -450,10 +472,22 @@ class Prescricoes(models.Model):
     Medicamento = models.ForeignKey(
         Medicamentos, db_index=True, on_delete=models.PROTECT
     )
-    DataInicial = models.DateField(null=False, blank=False)
-    DataFinal = models.DateField(null=False, blank=False)
-    Posologia = models.TextField(blank=False, null=False)
-    Horarios = models.TextField(blank=False, null=False)
+    DataInicial = models.DateField(
+        null=False,
+        blank=False,
+        verbose_name="Data inicial",
+    )
+    DataFinal = models.DateField(
+        null=False,
+        blank=False,
+        verbose_name="Data final",
+    )
+    Posologia = models.TextField(
+        blank=False,
+        null=False,
+        verbose_name="Posologia",
+    )
+    Horarios = models.TextField(blank=False, null=False, verbose_name="Horário")
 
     def __str__(self):
         return f"{self.Aluno}:{self.Medicamento}"
@@ -467,7 +501,8 @@ class Prescricoes(models.Model):
         """
 
         db_table = "Prescricoes"
-        verbose_name = "Prescrições"
+        verbose_name = "Prescrição"
+        verbose_name_plural = "Prescrições"
         UniqueConstraint(fields=["Prescricao_id"], name="PrescricaoPK")
 
 
@@ -490,7 +525,7 @@ class Agendas(models.Model):
         TurmasProfessores, db_index=True, on_delete=models.PROTECT
     )
     Matricula = models.ForeignKey(Matriculas, db_index=True, on_delete=models.PROTECT)
-    Data = models.DateField(null=False, blank=False)
+    Data = models.DateField(null=False, blank=False, verbose_name="Data")
 
     def __str__(self):
         return f"{self.TurmaProfessor}:{self.Matricula}:{self.Data}"
@@ -504,7 +539,8 @@ class Agendas(models.Model):
         """
 
         db_table = "Agendas"
-        verbose_name = "Agendas"
+        verbose_name = "Agenda"
+        verbose_name_plural = "Agendas"
         UniqueConstraint(fields=["Agenda_id"], name="AgendaPK")
         UniqueConstraint(fields=["TurmaProfessor", "Aluno", "Data"], name="AgendaAK")
 
@@ -548,7 +584,8 @@ class AgendasAlimentos(models.Model):
         """
 
         db_table = "AgendasAlimentos"
-        verbose_name = "Alimentos da Agenda"
+        verbose_name = "Alimento da Agenda"
+        verbose_name_plural = "Alimentos das Agendas"
         UniqueConstraint(fields=["AgendaAlimento_id"], name="AgendaAlimentoPK")
 
 
@@ -583,7 +620,8 @@ class AgendasBanhos(models.Model):
         """
 
         db_table = "AgendasBanhos"
-        verbose_name = "Banhos da Agenda"
+        verbose_name = "Banho da Agenda"
+        verbose_name_plural = "Banhos da Agenda"
         UniqueConstraint(fields=["AgendaBanho_id"], name="AgendaBanhoPK")
 
 
@@ -627,7 +665,8 @@ class AgendasFisiologias(models.Model):
         """
 
         db_table = "AgendasFisiologias"
-        verbose_name = "Fisiologias da Agenda"
+        verbose_name = "Fisiologia da Agenda"
+        verbose_name_plural = "Fisiologias da Agenda"
         UniqueConstraint(fields=["AgendaFisiologia_id"], name="AgendaFisiologiaPK")
 
 
@@ -662,7 +701,8 @@ class AgendasItens(models.Model):
         """
 
         db_table = "AgendasItens"
-        verbose_name = "Itens da Agenda"
+        verbose_name = "Item da Agenda"
+        verbose_name_plural = "Itens das Agendas"
         UniqueConstraint(fields=["AgendaItem_id"], name="AgendaItemPK")
 
 
@@ -699,7 +739,8 @@ class AgendasMedicamentos(models.Model):
         """
 
         db_table = "AgendasMedicamentos"
-        verbose_name = "Medicamentos da Agenda"
+        verbose_name = "Medicamento da Agenda"
+        verbose_name_plural = "Medicamentos das Agendas"
         UniqueConstraint(fields=["AgendaMedicamento_id"], name="AgendaMedicamentoPK")
 
 
@@ -734,7 +775,8 @@ class AgendasRecados(models.Model):
         """
 
         db_table = "AgendasRecados"
-        verbose_name = "Recados da Agenda"
+        verbose_name = "Recado da Agenda"
+        verbose_name_plural = "Recados das Agendas"
         UniqueConstraint(fields=["AgendaRecado_id"], name="AgendaRecadoPK")
 
 
@@ -770,5 +812,6 @@ class AgendasSonos(models.Model):
         """
 
         db_table = "AgendasSonos"
-        verbose_name = "Sonos da Agenda"
+        verbose_name = "Sono da Agenda"
+        verbose_name_plural = "Sonos das Agendas"
         UniqueConstraint(fields=["AgendaSono_id"], name="AgendaSonoPK")
