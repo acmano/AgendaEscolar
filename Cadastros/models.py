@@ -247,6 +247,52 @@ class Turmas(models.Model):
         UniqueConstraint(fields=["Nome"], name="TurmasAK")
 
 
+
+# Nivel 0 Tabelas de preços
+class TabelasPrecos(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
+    TabelaPrecoId = models.AutoField(
+        auto_created=True, primary_key=True, serialize=True, verbose_name="TabelaPrecosId"
+    )
+    Nome = models.CharField(
+        max_length=50,
+        verbose_name="Nome",
+        blank=False,
+        null=False,
+        unique=True,
+    )
+    Valor = models.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        verbose_name="Valor",
+        null=False,
+    )
+    
+    def __str__(self):
+        return f"{self.Nome}"
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
+        db_table = "TabelasPrecos"
+        ordering = ("Nome",)
+        verbose_name = "Tabela"
+        verbose_name_plural = "Tabelas"
+        UniqueConstraint(fields=["TabelaPrecosId"], name="TabelasPrecosPK")
+        UniqueConstraint(fields=["Nome"], name="TabelasPrecosAK")
+
+
 # Nivel 1 Alunos
 class Alunos(models.Model):
     """
@@ -451,6 +497,120 @@ class TurmasProfessores(models.Model):
         verbose_name = "Professor da Turma"
         verbose_name_plural = "Professores das Turmas"
         UniqueConstraint(fields=["TurmaProfessor_id"], name="TurmaProfessorPK")
+
+
+# Nivel 2 TurmasTabelas
+class TurmasTabelas(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
+    TurmaTabela_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="TurmaTabela_id",
+    )
+    Turma = models.ForeignKey(Turmas, db_index=True, on_delete=models.PROTECT)
+    Tabela = models.ForeignKey(TabelasPrecos, db_index=True, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"{self.Turma}:{self.Tabela}"
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
+        db_table = "TurmasTabelas"
+        verbose_name = "Tabela de Preços da Turma"
+        verbose_name_plural = "Tabelas de Preços das Turmas"
+        UniqueConstraint(fields=["TurmaTabela_id"], name="TurmaTabelaPK")
+
+
+# Nivel 2 ResponsaveisMensalidades
+class ResponsaveisMensalidades(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
+    ResponsavelMensalidade_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="ResponsavelMensalidade_id",
+    )
+    ResponsavelAluno = models.ForeignKey(ResponsaveisAlunos, db_index=True, on_delete=models.PROTECT)
+    Matricula = models.ForeignKey(Matriculas, db_index=True, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"{self.ResponsavelAluno.Responsavel.Pessoa.Nome}:{self.Matricula.Aluno.Pessoa.Nome}:{self.Matricula.Turma.Nome}"
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
+        db_table = "ResponsaveisMensalidades"
+        verbose_name = "Compromisso financeiro do responsável"
+        verbose_name_plural = "Compromissos financeiros do responsável"
+        UniqueConstraint(fields=["ResponsavelMensalidade_id"], name="ResponsavelMensalidadePK")
+
+
+
+# Nivel 2 TitulosBancarios
+class TitulosBancarios(models.Model):
+    """
+    [summary]
+    [extended_summary]
+    Returns:
+        [type]: [description]
+    """
+
+    TituloBancario_id = models.AutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=True,
+        verbose_name="TituloBancario_id",
+    )
+    ResponsavelMensalidade = models.ForeignKey(ResponsaveisMensalidades, db_index=True, on_delete=models.PROTECT)
+    Vencimento = models.DateField(db_index=True)
+    Valor = models.DecimalField(max_digits=10, decimal_places=2)
+    Pagamento = models.DateField(db_index=True, null=True, blank=True)
+    NumeroBancario = models.CharField(max_length=20, null=True, blank=True)
+    Matricula = models.ForeignKey(Matriculas, db_index=True, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"{self.ResponsavelMensalidade.ResponsavelAluno.Responsavel.Pessoa.Nome}:{self.Vencimento}:{self.Valor}"
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        """
+        [summary]
+        [extended_summary]
+        Returns:
+            [type]: [description]
+        """
+
+        db_table = "TitulosBancarios"
+        verbose_name = "Mensalidade"
+        verbose_name_plural = "Mensalidades"
+        UniqueConstraint(fields=["TituloBancario_id"], name="TituloBancarioPK")
+
+
+
+
 
 
 # Nivel 2 Prescricoes

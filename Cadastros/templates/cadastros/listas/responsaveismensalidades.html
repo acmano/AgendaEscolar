@@ -1,0 +1,43 @@
+{% extends 'paginas/modelo.html' %} {% load static %} {% block conteudo %}
+
+<h3>Lista de Responsáveis por Alunos</h3>
+<a
+  href="{% url 'responsaveismensalidades-cadastrar' %}"
+  class="btn btn-primary btn-sm"
+>
+  Acrescentar mensalidades para a matrícula
+</a>
+<hr />
+<div class="table-responsive">
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th>Responsável</th>
+      <th>Aluno</th>
+      <th>Turma</th>
+      <th>Ações</th>
+    </tr>
+    {% for responsavelmensalidade in object_list %}
+    <tr>
+      <td>
+        {{ responsavelmensalidade.ResponsavelAluno.Responsavel.Pessoa.Nome }}
+      </td>
+      <td>{{ responsavelmensalidade.Matricula.Aluno.Pessoa.Nome }}</td>
+      <td>{{ responsavelmensalidade.Matricula.Turma.Nome }}</td>
+      <td>
+        <a
+          href="{% url 'responsaveismensalidades-excluir' responsavelmensalidade.pk %}"
+          class="btn btn-danger btn-sm"
+          title="Excluir"
+          ><i class="fa fa-trash" aria-hidden="true"></i
+        ></a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3">Nenhum compromisso financeiro cadastrado</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

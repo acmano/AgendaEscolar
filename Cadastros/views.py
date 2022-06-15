@@ -213,6 +213,53 @@ class TurmasList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     template_name = "cadastros/listas/turmas.html"
 
 
+
+
+
+
+
+# Nivel 0 Turmas
+from .models import TabelasPrecos
+
+
+class TabelasCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = TabelasPrecos
+    fields = ["Nome", "Valor"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("tabelas-listar")
+
+
+class TabelasUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = TabelasPrecos
+    fields = ["Nome", "Valor"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("tabelas-listar")
+
+
+class TabelasDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = TabelasPrecos
+    fields = ["Nome", "Valor"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("tabelas-listar")
+
+
+class TabelasList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = TabelasPrecos
+    template_name = "cadastros/listas/tabelas.html"
+
+
+
+
+
+
 # Nivel 1 Alunos
 from .models import Alunos
 
@@ -477,6 +524,93 @@ class TurmasProfessoresList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     group_required = [u"", u""]
     model = TurmasProfessores
     template_name = "cadastros/listas/turmasprofessores.html"
+
+
+
+
+
+
+
+# Nivel 2 TurmasProfessores
+from .models import TurmasTabelas
+
+
+class TurmasTabelasCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = TurmasTabelas
+    fields = ["Turma", "Tabela"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("turmastabelas-listar")
+
+
+class TurmasTabelasUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = TurmasTabelas
+    fields = ["Turma", "Tabela"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("turmastabelas-listar")
+
+
+class TurmasTabelasDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = TurmasTabelas
+    fields = ["Turma", "Tabela"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("turmastabelas-listar")
+
+
+class TurmasTabelasList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = TurmasTabelas
+    template_name = "cadastros/listas/turmastabelas.html"
+
+
+
+
+# Nivel 2 TurmasProfessores
+from .models import ResponsaveisMensalidades
+
+
+class ResponsaveisMensalidadesCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = ResponsaveisMensalidades
+    fields = ["ResponsavelAluno", "Matricula"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("responsaveismensalidades-listar")
+
+
+class ResponsaveisMensalidadesUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = ResponsaveisMensalidades
+    fields = ["ResponsavelAluno", "Matricula"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("responsaveismensalidades-listar")
+
+
+class ResponsaveisMensalidadesDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = ResponsaveisMensalidades
+    fields = ["ResponsavelAluno", "Matricula"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("responsaveismensalidades-listar")
+
+
+class ResponsaveisMensalidadesList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    login_url = reverse_lazy("login")
+    group_required = [u"", u""]
+    model = ResponsaveisMensalidades
+    template_name = "cadastros/listas/responsaveismensalidades.html"
+
+
+
+
 
 
 # Nivel 2 Prescricoes

@@ -16,6 +16,7 @@ from .views import (
     MedicamentosList,
 )
 from .views import TurmasCreate, TurmasUpdate, TurmasDelete, TurmasList
+from .views import TabelasCreate, TabelasUpdate, TabelasDelete, TabelasList
 from .views import AlunosCreate, AlunosUpdate, AlunosDelete, AlunosList
 from .views import (
     ProfessoresCreate,
@@ -42,6 +43,20 @@ from .views import (
     TurmasProfessoresDelete,
     TurmasProfessoresList,
 )
+from .views import (
+    TurmasTabelasCreate,
+    TurmasTabelasUpdate,
+    TurmasTabelasDelete,
+    TurmasTabelasList,
+)
+
+from .views import (
+    ResponsaveisMensalidadesCreate,
+    ResponsaveisMensalidadesUpdate,
+    ResponsaveisMensalidadesDelete,
+    ResponsaveisMensalidadesList,
+)
+
 from .views import (
     PrescricoesCreate,
     PrescricoesUpdate,
@@ -110,6 +125,18 @@ urlpatterns += [
     path("turma/editar/<int:pk>/", TurmasUpdate.as_view(), name="turma-editar"),
     path("turma/excluir/<int:pk>/", TurmasDelete.as_view(), name="turma-excluir"),
     path("turmas/listar/", TurmasList.as_view(), name="turmas-listar"),
+]
+
+
+# Nivel 0 - Tabelas de Preços
+
+
+urlpatterns += [
+    #   path("endereco/", MinhaView.as_view(), name="endereco"),
+    path("tabela/cadastrar/", TabelasCreate.as_view(), name="tabela-cadastrar"),
+    path("tabela/editar/<int:pk>/", TabelasUpdate.as_view(), name="tabela-editar"),
+    path("tabela/excluir/<int:pk>/", TabelasDelete.as_view(), name="tabela-excluir"),
+    path("tabelas/listar/", TabelasList.as_view(), name="tabelas-listar"),
 ]
 
 
@@ -253,6 +280,67 @@ urlpatterns += [
         name="turmasprofessores-listar",
     ),
 ]
+
+
+
+
+
+# Nivel 2 - TurmasTabelas
+
+
+urlpatterns += [
+    #   path("endereco/", MinhaView.as_view(), name="endereco"),
+    path(
+        "turmatabela/cadastrar/",
+        TurmasTabelasCreate.as_view(),
+        name="turmatabela-cadastrar",
+    ),
+    path(
+        "turmatabela/editar/<int:pk>/",
+        TurmasTabelasUpdate.as_view(),
+        name="turmatabela-editar",
+    ),
+    path(
+        "turmatabela/excluir/<int:pk>/",
+        TurmasTabelasDelete.as_view(),
+        name="turmatabela-excluir",
+    ),
+    path(
+        "turmatabela/listar/",
+        TurmasTabelasList.as_view(),
+        name="turmastabelas-listar",
+    ),
+]
+
+
+
+# Nivel 2 - ResponsaveisMensalidades
+
+
+urlpatterns += [
+    #   path("endereco/", MinhaView.as_view(), name="endereco"),
+    path(
+        "reponsaveismensalidades/cadastrar/",
+        ResponsaveisMensalidadesCreate.as_view(),
+        name="responsaveismensalidades-cadastrar",
+    ),
+    path(
+        "reponsavelmensalidades/editar/<int:pk>/",
+        ResponsaveisMensalidadesUpdate.as_view(),
+        name="responsaveismensalidades-editar",
+    ),
+    path(
+        "reponsavelmensalidades/excluir/<int:pk>/",
+        ResponsaveisMensalidadesDelete.as_view(),
+        name="responsaveismensalidades-excluir",
+    ),
+    path(
+        "reponsavelmensalidades/listar/",
+        ResponsaveisMensalidadesList.as_view(),
+        name="responsaveismensalidades-listar",
+    ),
+]
+
 
 
 # Nivel 2 - Prescricoes
