@@ -1,4 +1,4 @@
-django==3.2.9
+django==3.2.14
 django-autoslug==1.9.8
 django-debug-toolbar==3.2.2
 django-model-utils==4.2.0
