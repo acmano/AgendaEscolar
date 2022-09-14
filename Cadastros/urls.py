@@ -58,6 +58,13 @@ from .views import (
 )
 
 from .views import (
+    TitulosBancariosCreate,
+    TitulosBancariosUpdate,
+    TitulosBancariosDelete,
+    TitulosBancariosList,
+)
+
+from .views import (
     PrescricoesCreate,
     PrescricoesUpdate,
     PrescricoesDelete,
@@ -342,6 +349,33 @@ urlpatterns += [
 ]
 
 
+# Nivel 2 - TirulosBancarios
+
+
+urlpatterns += [
+    #   path("endereco/", MinhaView.as_view(), name="endereco"),
+    path(
+        "titulosbancarios/cadastrar/",
+        TitulosBancariosCreate.as_view(),
+        name="titulosbancarios-cadastrar",
+    ),
+    path(
+        "titulosbancarios/editar/<int:pk>/",
+        TitulosBancariosUpdate.as_view(),
+        name="titulosbancarios-editar",
+    ),
+    path(
+        "titulosbancarios/excluir/<int:pk>/",
+        TitulosBancariosDelete.as_view(),
+        name="titulosbancarios-excluir",
+    ),
+    path(
+        "titulosbancarios/listar/",
+        TitulosBancariosList.as_view(),
+        name="titulosbancarios-listar",
+    ),
+]
+
 
 # Nivel 2 - Prescricoes
 
@@ -403,10 +437,10 @@ urlpatterns += [
 
 # urlpatterns += [
 # path("endereco/", MinhaView.as_view(), name="endereco"),
-# path("login/",auth_views.LoginView.as_view(template_name="paginas/login.html"),name="login",),
+# path("login/",auth_views.LoginView.as_view(template_name="Paginas/login.html"),name="login",),
 # path("logout/", auth_views.LogoutView.as_view(), name="logout"),
 # path("registrar/", UserCreate.as_view(), name="registrar"),
 # path("atualizardados/", PessoasUpdate.as_view(), name="atualizardados"),
 # path("agenda/dados/", AgendaCreate.as_view(), name="agenda-dados"),
-# path("password/",PasswordsChangeView.as_view(template_name="paginas/password.html"),name="password",),
+# path("password/",PasswordsChangeView.as_view(template_name="Paginas/password.html"),name="password",),
 # ]

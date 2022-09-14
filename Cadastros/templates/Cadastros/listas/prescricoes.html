@@ -1,0 +1,56 @@
+{% extends 'Paginas/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+
+<h3>Lista de Prescrições médicas</h3>
+<a href="{% url 'prescricao-cadastrar' %}" class="btn btn-primary btn-sm">Adicionar Prescrição</a>
+<hr>
+<div class="table-responsive">
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th>Aluno</th>
+      <th>Medicamento</th>
+      <th>Data inicial</th>
+      <th>Data final</th>
+      <th>Posologia</th>
+      <th>Horários</th>
+      <th>Ações</th>
+    </tr>
+    {% for prescricoes in object_list %}
+    <tr>
+      <td>
+        {{ prescricoes.Alunos.Pessoa.Nome }}
+      </td>
+      <td>
+        {{ prescricoes.Medicamento.Nome }}
+      </td>
+      <td>
+        {{ prescricoes.DataInicial }}
+      </td>
+      <td>
+        {{ prescricoes.DataFinal }}
+      </td>
+      <td>
+        {{ prescricoes.Posologia }}
+      </td>
+      <td>
+        {{ prescricoes.Horarios }}
+      </td>
+      <td>
+        <a href="{% url 'prescricao-editar' prescricoes.pk %}" class="btn btn-warning btn-sm" title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        <a href="{% url 'prescricao-excluir' prescricoes.pk %}" class="btn btn-danger btn-sm" title="Excluir"><i class="fa fa-trash" aria-hidden="true"></i></a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="7">
+        Nenhuma prescrição cadastrada
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

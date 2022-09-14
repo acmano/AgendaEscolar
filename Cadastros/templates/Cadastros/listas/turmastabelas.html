@@ -1,0 +1,38 @@
+{% extends 'Paginas/modelo.html' %} {% load static %} {% block conteudo %}
+
+<h3>Lista de Tabelas de Preços por Turma</h3>
+<a 
+  href="{% url 'turmatabela-cadastrar' %}"
+  class="btn btn-primary btn-sm">
+    Adicionar Tabela de Preços à Turma
+</a>
+<hr />
+<div class="table-responsive">
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th>Turma</th>
+      <th>Tabela</th>
+      <th>Ações</th>
+    </tr>
+    {% for turmatabela in object_list %}
+    <tr>
+      <td>{{ turmatabela.Turma.Nome }}</td>
+      <td>{{ turmatabela.Tabela.Nome }}</td>
+      <td>
+        <a
+          href="{% url 'turmatabela-excluir' turmatabela.pk %}"
+          class="btn btn-danger btn-sm"
+          title="Excluir"
+          ><i class="fa fa-trash" aria-hidden="true"></i
+        ></a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3">Nenhuma tabela de preços cadastrada em nenhuma turma</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

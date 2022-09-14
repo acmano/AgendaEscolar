@@ -1,0 +1,39 @@
+{% extends 'Paginas/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+
+<h3>Lista de Professores por Turma</h3>
+<a href="{% url 'turmaprofessor-cadastrar' %}" class="btn btn-primary btn-sm">Adicionar Professor à Turma</a>
+<hr>
+<div class="table-responsive">
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th>Turma</th>
+      <th>Professor</th>
+      <th>Ações</th>
+    </tr>
+    {% for turmaprofessor in object_list %}
+    <tr>
+      <td>
+        {{ turmaprofessor.Turma.Nome }}
+      </td>
+      <td>
+        {{ turmaprofessor.Professor.Pessoa.Nome }}
+      </td>
+      <td>
+        <a href="{% url 'turmaprofessor-excluir' turmaprofessor.pk %}" class="btn btn-danger btn-sm" title="Excluir"><i class="fa fa-trash" aria-hidden="true"></i></a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3">
+        Nenhuma professor cadastrado em nenhuma turma
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}
