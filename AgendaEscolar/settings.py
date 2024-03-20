@@ -51,7 +51,7 @@ INSTALLED_APPS = [
 ]
 
 # Crispy Forms
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -68,8 +68,8 @@ ROOT_URLCONF = "AgendaEscolar.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        #       "DIRS": [os.path.join(BASE_DIR, "Templates")],
-        "DIRS": ["/opt/AgendaEscolar/Paginas/Templates"],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        # "DIRS": ["/opt/AgendaEscolar/Paginas/Templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -116,14 +116,15 @@ WSGI_APPLICATION = "AgendaEscolar.wsgi.application"
 #    }
 # }
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'etbmkqwi',
-        'USER': 'etbmkqwi',
-        'PASSWORD': 'Rn2ct-9Z_e4Otju_WEY1iauJ7eKpi1eC',
-        'HOST': 'kesavan.db.elephantsql.com',
-        'PORT': 5432
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'db_agenda',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306'
     }
 }
 
